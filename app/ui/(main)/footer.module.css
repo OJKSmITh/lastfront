@@ -1,0 +1,29 @@
+.container {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 16px;
+  background: #27262c;
+  height: 100px;
+  align-items: center;
+}
+
+.container strong{
+  color: #9A6AFF;
+}
+
+.team{
+  color: #F4EEFF;
+}
+
+.developer{
+  display: flex;
+  gap: 30px;
+  color: #F4EEFF;
+}
+
+.logo{
+  display: flex;
+  color: #b8add2;
+  gap: 15px;
+}

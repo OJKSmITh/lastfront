@@ -1,0 +1,25 @@
+.container{
+
+}
+
+.headerWrapper{
+  padding-top: 32px;
+  padding-bottom: 32px;
+  background: linear-gradient(139.73deg,#e5fdff,#f3efff);
+}
+
+.header{
+  margin: 0 116px 0 116px;
+  padding: 0 24px 0 24px;
+}
+
+.header h1{
+  font-size: 64px;
+  line-height: 1.1;
+  color: #7645d9;
+}
+
+.header h2{
+  color: #280d5f;
+  font-size: 20px;
+}

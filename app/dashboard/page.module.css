@@ -1,0 +1,50 @@
+.container{
+  padding: 0px 36px;
+}
+
+.header{
+  margin: 24px;
+}
+
+.subject {
+  margin-bottom: 16px;
+}
+
+.subject h2 {
+  color: #280d5f ;
+}
+
+.total {
+  display: flex;
+  gap: 20px;
+}
+
+.amount{
+  border: 1px solid #000;
+  border-radius: 24px;
+  background: #fff;
+  padding: 24px;
+}
+
+.staking{
+  border: 1px solid #000;
+  border-radius: 24px;
+  background: #fff;
+  padding: 24px;
+}
+
+.amount h3 {
+  color: #7645d9;
+}
+
+.amount h1 {
+  color: #280d5f;
+}
+
+.staking h3 {
+  color: #7645d9;
+}
+
+.amount h1 {
+  color: #280d5f;
+}
