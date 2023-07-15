@@ -33,10 +33,7 @@ const tokenCA = {
 
 const Swap = () => {
   const dispatch = useDispatch()
-  const { provider, selectToken, contract, wallet, tokenPrice } = useSelector<
-    RootState,
-    RootState
-  >((state) => state)
+  const { provider, selectToken, contract, wallet, tokenPrice } = useSelector<RootState, RootState>((state) => state)
   const [inputValueFrom, setInputValueFrom] = useState(0)
   const [returnValue, setreturnValue] = useState("0")
 
@@ -57,11 +54,7 @@ const Swap = () => {
   }
 
   useEffect(() => {
-    if (
-      provider.provider !== "none" &&
-      typeof provider.provider !== "string" &&
-      contract.factory === undefined
-    ) {
+    if (provider.provider !== "none" && typeof provider.provider !== "string" && contract.factory === undefined) {
       const factory = useFactory(provider.provider)
       const signer = provider.provider.getSigner()
       const signerfactory = factory!.connect(signer)
@@ -74,10 +67,7 @@ const Swap = () => {
   }, [contract])
 
   useEffect(() => {
-    const percent = setPercent(
-      selectToken.fromToken as Tokens,
-      selectToken.toToken as Tokens
-    )
+    const percent = setPercent(selectToken.fromToken as Tokens, selectToken.toToken as Tokens)
     if (percent) {
       const result = percent * inputValueFrom
       const returnPrice = result.toFixed(3)
@@ -98,10 +88,7 @@ const Swap = () => {
   const [tokenSwap, setTokenSwap] = useState<IsetToken>(tokenData)
 
   const setBalance = async () => {
-    if (
-      typeof provider.provider !== "string" &&
-      contract.factory !== undefined
-    ) {
+    if (typeof provider.provider !== "string" && contract.factory !== undefined) {
       const tokenDatas = { ...tokenData }
       const from = await contract.factory.checkToken(tokenCA[tokenData.from])
       const bigNumber = ethers.BigNumber.from(from._hex)
@@ -109,9 +96,7 @@ const Swap = () => {
       tokenDatas.frombalance = converted
       const to = await contract.factory.checkToken(tokenCA[tokenData.to])
       const bigNumberTo = ethers.BigNumber.from(to._hex)
-      const convertedTo = bigNumberTo
-        .div(ethers.constants.WeiPerEther)
-        .toNumber()
+      const convertedTo = bigNumberTo.div(ethers.constants.WeiPerEther).toNumber()
       tokenDatas.tobalance = convertedTo
       setTokenSwap(tokenDatas)
     }
@@ -122,9 +107,7 @@ const Swap = () => {
     const clonetokenSwap = { ...tokenData }
     const from = await provider.provider.getBalance(wallet.signer)
     const bigNumberFrom = ethers.BigNumber.from(from._hex)
-    const convertedFrom = bigNumberFrom
-      .div(ethers.constants.WeiPerEther)
-      .toNumber()
+    const convertedFrom = bigNumberFrom.div(ethers.constants.WeiPerEther).toNumber()
     clonetokenSwap.frombalance = convertedFrom
     const to = await contract.factory!.checkToken(tokenCA[tokenData.to])
     const bigNumberTo = ethers.BigNumber.from(to._hex)
@@ -138,9 +121,7 @@ const Swap = () => {
     const clonetokenSwap = { ...tokenData }
     const from = await contract.factory!.checkToken(tokenCA[tokenData.from])
     const bigNumberFrom = ethers.BigNumber.from(from._hex)
-    const convertedFrom = bigNumberFrom
-      .div(ethers.constants.WeiPerEther)
-      .toNumber()
+    const convertedFrom = bigNumberFrom.div(ethers.constants.WeiPerEther).toNumber()
     clonetokenSwap.frombalance = convertedFrom
     const to = await provider.provider.getBalance(wallet.signer)
     const bigNumberTo = ethers.BigNumber.from(to._hex)
@@ -158,10 +139,7 @@ const Swap = () => {
         } else {
           setBalanceEthToRETH()
         }
-      } else if (
-        selectToken.fromToken == "RETH" ||
-        selectToken.toToken == "RETH"
-      ) {
+      } else if (selectToken.fromToken == "RETH" || selectToken.toToken == "RETH") {
         setTokenSwap(tokenData)
         alert("불가능한 조합입니다.")
       } else {
@@ -176,10 +154,7 @@ const Swap = () => {
   }
 
   const checked = () => {
-    if (
-      (selectToken.fromToken === "ETH" && selectToken.toToken === "RETH") ||
-      (selectToken.fromToken === "RETH" && selectToken.toToken === "ETH")
-    ) {
+    if ((selectToken.fromToken === "ETH" && selectToken.toToken === "RETH") || (selectToken.fromToken === "RETH" && selectToken.toToken === "ETH")) {
       return true
     }
     return false
@@ -198,14 +173,9 @@ const Swap = () => {
       if (inputValueFrom <= 0) return alert("올바른 숫자를 입력해주세요")
       const inputString = inputValueFrom.toString()
       const amount = ethers.utils.parseEther(inputString)
-      const tx = await contract.factory.swapToken(
-        tokenCA[tokenSwap.from],
-        tokenCA[tokenSwap.to],
-        amount,
-        {
-          gasLimit: 800000,
-        }
-      )
+      const tx = await contract.factory.swapToken(tokenCA[tokenSwap.from], tokenCA[tokenSwap.to], amount, {
+        gasLimit: 800000,
+      })
       const complete = await tx.wait()
       if (complete) {
         setBalance()
@@ -261,18 +231,8 @@ const Swap = () => {
             </div>
           </div>
           <div className={styles.content}>
-            <SwapToken
-              swapData={tokenSwap}
-              onClick={changeClickHandler}
-              onchange={handleInputChangeFrom}
-              returnValue={returnValue}
-            ></SwapToken>
-            <Button
-              width={18}
-              height={3}
-              text={text}
-              onclick={clickHandler}
-            ></Button>
+            <SwapToken swapData={tokenSwap} onClick={changeClickHandler} onchange={handleInputChangeFrom} returnValue={returnValue}></SwapToken>
+            <Button width={18} height={3} text={text} onclick={clickHandler}></Button>
           </div>
         </div>
       </div>

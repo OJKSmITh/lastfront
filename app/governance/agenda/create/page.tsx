@@ -1,6 +1,8 @@
 "use client"
 
+import { RootState } from "@/redux/store"
 import { useState } from "react"
+import { useSelector } from "react-redux"
 import ChoiceBox from "./content/ChoiceBox"
 import HaveBox from "./content/HaveBox"
 import SubmitButton from "./content/SubmitButton"
@@ -19,15 +21,7 @@ const CreateProposal = () => {
         <HaveBox></HaveBox>
         <ChoiceBox></ChoiceBox>
         <TokenAddressBox></TokenAddressBox>
-        <ChangeCodeBox>
-          <div>Change Code</div>
-        </ChangeCodeBox>
-        <Write
-          subjectValue={subjectValue}
-          setSubjectValue={setSubjectValue}
-          contentValue={contentValue}
-          setContentValue={setContentValue}
-        />
+        <Write subjectValue={subjectValue} setSubjectValue={setSubjectValue} contentValue={contentValue} setContentValue={setContentValue} />
         <SubmitButton subjectValue={subjectValue} contentValue={contentValue} />
       </Wrapper>
     </Container>

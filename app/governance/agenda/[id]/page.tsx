@@ -20,7 +20,6 @@ const ViewProposal = ({ params }: { params: PageParams }) => {
 
   const getData = async () => {
     const res = await request.get(`/api/governance/${params.id}`)
-    console.log("res::", res.data)
     setSubject(res.data[0].subject)
     setContent(res.data[0].content)
     setIndex(res.data[0].id)

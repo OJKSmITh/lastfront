@@ -1,12 +1,6 @@
 "use client"
 
-import {
-  DetailInfo,
-  GovWrapper,
-  ItemBox,
-  ItemTitle,
-  ItemValue,
-} from "../styled/page.styled"
+import { DetailInfo, GovWrapper, ItemBox, ItemTitle, ItemValue } from "../styled/page.styled"
 
 const GovInfo = ({ index }: { index: number }) => {
   const data = [
@@ -22,8 +16,8 @@ const GovInfo = ({ index }: { index: number }) => {
   return (
     <GovWrapper>
       <DetailInfo>Detail Information</DetailInfo>
-      {data.map((item) => (
-        <ItemBox>
+      {data.map((item, idx) => (
+        <ItemBox key={idx}>
           <ItemTitle>{item.title}</ItemTitle>
           <ItemValue>{item.value}</ItemValue>
         </ItemBox>
