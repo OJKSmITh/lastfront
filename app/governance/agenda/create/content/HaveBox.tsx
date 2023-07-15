@@ -10,18 +10,17 @@ const HaveBox = () => {
 
   const {
     contract: { governance, factory },
-    wallet: { signer },
   } = useSelector<RootState, RootState>((state) => state)
 
   const setBalance = async () => {
     const ASD = process.env.NEXT_PUBLIC_ASDTOKEN_ADDRESS
-    console.log(ASD)
     const vASD = process.env.NEXT_PUBLIC_VASDTOKEN_ADDRESS
-    // const ASDBalance = await factory!.checkToken()
-    // console.log(ASDBalance)
+    const ASDBalance = await factory!.checkToken(ASD)
+    const vASDBalance = await factory!.checkToken(vASD)
+    setASD(ASDBalance.div(ethers.constants.WeiPerEther).toNumber())
+    setvASD(vASDBalance.div(ethers.constants.WeiPerEther).toNumber())
   }
   useEffect(() => {
-    console.log(factory)
     if (factory) {
       setBalance()
     }
@@ -33,14 +32,14 @@ const HaveBox = () => {
         <Amount>
           <HaveTitle>Current ASD</HaveTitle>
           <CostWrapper>
-            <HaveAmount>0 ASD</HaveAmount>
+            <HaveAmount>{ASD} ASD</HaveAmount>
           </CostWrapper>
         </Amount>
         <Line></Line>
         <Ticket>
           <HaveTitle>Current Ticket</HaveTitle>
           <CostWrapper>
-            <HaveAmount>0 vKSP</HaveAmount>
+            <HaveAmount>{vASD} vASD</HaveAmount>
             <Cost>min Vote: vKSP</Cost>
           </CostWrapper>
         </Ticket>

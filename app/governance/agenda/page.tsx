@@ -76,7 +76,7 @@ const Agenda = () => {
     if (typeof provider.provider !== "string") {
       const signer = provider.provider.getSigner()
       const govCA = process.env.NEXT_PUBLIC_GOVERNOR_ADDRESS
-      const factoryCA = process.env.NEXT_PUBLIC_VASDTOKEN_ADDRESS
+      const factoryCA = process.env.NEXT_PUBLIC_FACTORY_ADDRESS
       const govinstance = new ethers.Contract(govCA!, Governance.abi, provider.provider)
       const factoryinstatnce = new ethers.Contract(factoryCA!, Factory.abi, provider.provider)
       const govContract = govinstance.connect(signer)

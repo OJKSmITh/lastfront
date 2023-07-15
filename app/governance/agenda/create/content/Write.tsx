@@ -1,39 +1,19 @@
 "use client"
 
 import { useState } from "react"
-import {
-  ContentBox,
-  ContentWrapper,
-  SubjectBox,
-  SubjectWrapper,
-  WriteWrapper,
-} from "../styled/page.styled"
+import { ContentBox, ContentWrapper, SubjectBox, SubjectWrapper, WriteWrapper } from "../styled/page.styled"
 
 interface IValue {
   subjectValue: string
-  setSubjectValue: (value: string) => void
   contentValue: string
   setContentValue: (value: string) => void
 }
 
-const Write: React.FC<IValue> = ({
-  subjectValue,
-  setSubjectValue,
-  contentValue,
-  setContentValue,
-}) => {
+const Write: React.FC<IValue> = ({ subjectValue, contentValue, setContentValue }) => {
   return (
     <WriteWrapper>
       <SubjectWrapper>
-        <SubjectBox
-          placeholder="Subject"
-          type="text"
-          value={subjectValue}
-          onChange={(e: any) => {
-            console.log(e.target.value)
-            setSubjectValue(e.target.value)
-          }}
-        />
+        <SubjectBox placeholder="Subject" type="text" value={subjectValue} readOnly />
       </SubjectWrapper>
       <ContentWrapper>
         <ContentBox
