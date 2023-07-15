@@ -8,35 +8,70 @@ import TextContent from "./content/textContent"
 import YesOrNoBox from "./content/yesOrNoBox"
 import { BodyWrapper, Container } from "./styled/page.styled"
 import request from "@/request"
+import { useSelector } from "react-redux"
+import { RootState } from "@/redux/store"
+import { BigNumber, ethers } from "ethers"
+import { ButtonDiv } from "@/app/contents/govornor/buttondiv"
 
 type PageParams = {
   id: string
 }
+type InfoData = (number | string | boolean | BigNumber)[]
 
 const ViewProposal = ({ params }: { params: PageParams }) => {
   const [subject, setSubject] = useState("")
   const [content, setContent] = useState("")
+  const [balance, setBalance] = useState<number>(0)
   const [index, setIndex] = useState(0)
+  const [proposal, setProposal] = useState<any>("")
+  const [date, setDate] = useState<string>("0")
+
+  const owner = process.env.NEXT_PUBLIC_OWNER_ADDRESS
+
+  const {
+    wallet: { signer },
+    contract: { governance, selfToken },
+  } = useSelector<RootState, RootState>((state) => state)
 
   const getData = async () => {
     const res = await request.get(`/api/governance/${params.id}`)
+    setDate(`${res.data[0].created_at.toString().split("T")[0]} ~ ${res.data[0].end_date.toString().split("T")[0]}`)
     setSubject(res.data[0].subject)
     setContent(res.data[0].content)
     setIndex(res.data[0].id)
+    const contractData = await governance!.getProposal(params.id)
+    setInfo(contractData)
+    const balance = await selfToken!.balanceOf(signer)
+    setBalance(balance.div(ethers.constants.WeiPerEther).toNumber())
+  }
+
+  const setInfo = (data: InfoData) => {
+    const info = {
+      proposal: data[0],
+      startBlock: (data[1] as BigNumber).toNumber(),
+      endBlock: (data[2] as BigNumber).toNumber(),
+      callFunction: data[3],
+      canceled: data[4],
+      executed: data[5],
+      amountVote: (data[6] as BigNumber).div(ethers.constants.WeiPerEther).toNumber(),
+      writterNo: params.id,
+    }
+    setProposal(info)
   }
 
   useEffect(() => {
-    getData()
+    if (governance && selfToken) getData()
   }, [])
 
   return (
     <Container>
       <BodyWrapper>
-        <Subject subject={subject} />
-        <YesOrNoBox index={index}></YesOrNoBox>
+        <Subject subject={subject} balance={balance} date={date} />
+        <YesOrNoBox index={index} proposal={proposal}></YesOrNoBox>
         <TextContent subject={subject} content={content} />
-        <GovInfo index={index} />
+        <GovInfo index={index} proposal={proposal} />
         <GovProgress />
+        {signer === owner ? <ButtonDiv index={params.id} text={subject} /> : null}
       </BodyWrapper>
     </Container>
   )

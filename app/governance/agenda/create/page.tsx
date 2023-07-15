@@ -15,9 +15,9 @@ const tokenCA = {
   ASD: process.env.NEXT_PUBLIC_ASDTOKEN_ADDRESS,
   ETH: process.env.NEXT_PUBLIC_ETHTOKEN_ADDRESS,
   RETH: process.env.NEXT_PUBLIC_RETHTOKEN_ADDRESS,
-  ARBLP: "",
-  USDTLP: "",
-  ETHLP: "",
+  ARBLP: process.env.NEXT_PUBLIC_ARBLP_ADDRESS,
+  USDTLP: process.env.NEXT_PUBLIC_USDTLP_ADDRESS,
+  ETHLP: process.env.NEXT_PUBLIC_ETHLP_ADDRESS,
 }
 
 const CreateProposal = () => {

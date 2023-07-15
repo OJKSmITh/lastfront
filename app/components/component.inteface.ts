@@ -55,6 +55,7 @@ export interface ButtonCon {
   onclick?: any
   left?: number
   top?: number
+  index?: string
 }
 
 export interface pairCon {
@@ -150,5 +151,5 @@ export interface IBasicBtn {
   letterSpacing?: string
   onClick?: any
   text?: string
-  left?:number
+  left?: number
 }

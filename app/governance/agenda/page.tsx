@@ -29,6 +29,7 @@ import { RootState } from "@/redux/store"
 import { useDispatch, useSelector } from "react-redux"
 import Governance from "../../../contracts/governance.sol/Governance.json"
 import Factory from "../../../contracts/Factory_v1.sol/Factory_v1.json"
+import SelfToken from "../../../contracts/SelfToken.sol/SelfToken.json"
 import { Contract, ethers } from "ethers"
 import { setProviders } from "@/app/utiles/setprovider"
 import { setProvider } from "@/redux/reducer/provider"
@@ -72,17 +73,30 @@ const Agenda = () => {
     }
   }, [])
 
+  const connectContract = (ca: string, abi: any) => {
+    if (typeof provider.provider !== "string") {
+      const signer = provider.provider.getSigner()
+      const instance = new ethers.Contract(ca, abi, provider.provider)
+      const contract = instance.connect(signer)
+      return contract
+    }
+  }
+
   useEffect(() => {
     if (typeof provider.provider !== "string") {
       const signer = provider.provider.getSigner()
       const govCA = process.env.NEXT_PUBLIC_GOVERNOR_ADDRESS
       const factoryCA = process.env.NEXT_PUBLIC_FACTORY_ADDRESS
+      const VASDCA = process.env.NEXT_PUBLIC_VASDTOKEN_ADDRESS
       const govinstance = new ethers.Contract(govCA!, Governance.abi, provider.provider)
       const factoryinstatnce = new ethers.Contract(factoryCA!, Factory.abi, provider.provider)
+      const VASDinstance = new ethers.Contract(VASDCA!, SelfToken.abi, provider.provider)
       const govContract = govinstance.connect(signer)
       const facContract = factoryinstatnce.connect(signer)
+      const VASDContract = VASDinstance.connect(signer)
       dispatch(setGovernance(govContract))
       dispatch(setFactory(facContract))
+      dispatch(setSelfToken(VASDContract))
     }
   }, [provider])
 
