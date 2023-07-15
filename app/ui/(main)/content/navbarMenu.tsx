@@ -35,7 +35,8 @@ const NavList: ItemProps[] = [
     name: "Governance",
     list: [
       { name: "staking", link: "/governance/staking" },
-      { name: "agenda", link: "/governance/agenda" },
+      { name: "unstaking", link: "/governance/unstaking"},
+      { name: "agenda", link: "/governance/agenda" }
     ],
   },
   {

@@ -151,4 +151,5 @@ export interface IBasicBtn {
   letterSpacing?: string
   onClick?: any
   text?: string
+  left?:number
 }

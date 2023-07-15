@@ -44,6 +44,7 @@ const StakingContent = () => {
   const handleSubmissionLp = (param:string)=>{
     setSubmissionLp(param)
   }
+
   useEffect(()=>{
     if(provider.provider !== "none"){
       const contract = useFactory(provider.provider)
@@ -61,26 +62,23 @@ const StakingContent = () => {
   )
 
   
-  const submitButton = (e:any)=>{
+  const unSubmitButton = (e:any)=>{
     e.preventDefault()
     if(!signerInstance) return
-    console.log(signerInstance)
     let parseAmount = ethers.utils.parseEther(submissionAmount.toString())
+    console.log(signerInstance)
     if(submissionLp==="ARBLP"){
       let realPeriod =submissionPeriod
-      signerInstance.LpStaking(ArbLp, parseAmount, realPeriod)
+      signerInstance.withDrawStaking(ArbLp, parseAmount)
     } else if(submissionLp ==="USDTLP"){
       let realPeriod =submissionPeriod
-      signerInstance.LpStaking(UsdtLP, parseAmount, realPeriod)
+      signerInstance.withDrawStaking(UsdtLP, parseAmount)
     } else if(submissionLp ==="ETHLP"){
       let realPeriod =submissionPeriod
-      signerInstance.LpStaking(EthLP, parseAmount, realPeriod)
+      signerInstance.withDrawStaking(EthLP, parseAmount,{ gasLimit:508388})
     }
   }
 
-  const unSubmitButton =(e:any) =>{
-    e.preventDefault()
-  }
 
 
   return (
@@ -88,11 +86,10 @@ const StakingContent = () => {
       <ContentWrapper>
         <StakingReward>
           <StakingArea handleSubmissionPeriod={handleSubmissionPeriod} handleSubmissionAmount={handleSubmissionAmount} handleSubmissionLp={handleSubmissionLp}/>
-          <RewardArea />
         </StakingReward>
         <form>
           <BasicButton
-          text="Staking !"
+          text="withDraw Staking !"
           padding="24px"
           borderRadius="16px"
           fontSize="16px"
@@ -101,7 +98,7 @@ const StakingContent = () => {
           margin-left="1rem"
           color="#fff"
           left={1}
-          onClick={submitButton}
+          onClick={unSubmitButton}
         />
       </form>
       </ContentWrapper>
