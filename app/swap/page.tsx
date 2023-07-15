@@ -12,7 +12,7 @@ import { setFactory } from "@/redux/reducer/contract"
 import { useFactory } from "../hooks/usefactory"
 import { ethers } from "ethers"
 import { setFromToken, setToToken } from "@/redux/reducer/selecttoken"
-import { Loader } from "./styled/page.styled"
+import { Loader } from "../components/loader/loader.styled"
 
 type Tokens = "ETH" | "RETH" | "ASD" | "ARB" | "USDT"
 

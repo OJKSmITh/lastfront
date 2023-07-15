@@ -1,103 +1,102 @@
 "use client"
 import PoolIntro from "@/app/components/pool/intro/poolIntro"
 import styles from "./page.module.css"
-import { PairList } from '@/app/components/pool/pairlist/pair'
-import { SwapBox } from '@/app/components/swapbox'
-import { useEffect, useState } from 'react'
-import {useSelector} from "react-redux"
-import { RootState} from "@/redux/store"
-import { useFactory} from "../../hooks/usefactory"
-import { Contract, ethers } from 'ethers'
+import { PairList } from "@/app/components/pool/pairlist/pair"
+import { SwapBox } from "@/app/components/swapbox"
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import { RootState } from "@/redux/store"
+import { useFactory } from "../../hooks/usefactory"
+import { Contract, ethers } from "ethers"
 import dotenv from "dotenv"
 dotenv.config()
 
-
-const address = '0x0000000000000000000000000000000000000000'
+const address = "0x0000000000000000000000000000000000000000"
 
 const PairPool = () => {
-  const {provider, wallet} = useSelector<RootState, RootState>(
-    (state) => state
-    )
-    const [contractInstance, setContractInstance] = useState<Contract | null>(null)
-    const [signerInstance, setsignerInstance] =useState<Contract | null>(null)
-    const [isTestPassed, setIsTestPassed] = useState(false);
-    const [isEthTestPassed, setEthTestPassed] = useState(false);
-    const [isArbTestPassed, setArbTestPassed] = useState(false);
-    const [isUsdtTestPassed, setUsdtTestPassed] = useState(false);
-    const [ETHAmount, setETHAmount] = useState("");
-    const [ARBAmount, setARBAmount] = useState("");
-    const [USDTAmount, setUSDTAmount] = useState("");
+  const { provider, wallet } = useSelector<RootState, RootState>((state) => state)
+  const [contractInstance, setContractInstance] = useState<Contract | null>(null)
+  const [signerInstance, setsignerInstance] = useState<Contract | null>(null)
+  const [isTestPassed, setIsTestPassed] = useState(false)
+  const [isEthTestPassed, setEthTestPassed] = useState(false)
+  const [isArbTestPassed, setArbTestPassed] = useState(false)
+  const [isUsdtTestPassed, setUsdtTestPassed] = useState(false)
+  const [ETHAmount, setETHAmount] = useState("")
+  const [ARBAmount, setARBAmount] = useState("")
+  const [USDTAmount, setUSDTAmount] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
+  const getLpAddress = async (tokenName: string, contractInstance: Contract) => {
+    setIsLoading(!isLoading)
+    const providers = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = providers.getSigner()
+    const connectedContract = contractInstance.connect(signer)
 
-    const getLpAddress = async (tokenName: string, contractInstance: Contract) => {
-      const providers = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = providers.getSigner()
-      const connectedContract = contractInstance.connect(signer)
-
-      let result;
-      const test = connectedContract.checkPool();
-      test.then((result:any)=>{
-        console.log(result[2])
-      })
-      switch(tokenName) {
-        case 'ETH':
-          result = await connectedContract.checkPool();
-          if (ethers.constants.AddressZero == result[2]){
-            setEthTestPassed(false);
-          } else {
-            setEthTestPassed(true)
-          }
-          break;
-        case 'ARB':
-          result = await connectedContract.checkPool();
-          if (ethers.constants.AddressZero == result[0]){
-            setArbTestPassed(false);
-          } else {
-            setArbTestPassed(true)
-          }
-          break;
-        case 'USDT':
-          result = await connectedContract.checkPool();
-          if (ethers.constants.AddressZero == result[1]){
-            setUsdtTestPassed(false);
-          } else {
-            setUsdtTestPassed(true)
-          }
-          break;
-        default:
-          throw new Error(`Unsupported token: ${tokenName}`);
-      }
+    let result
+    const test = connectedContract.checkPool()
+    test.then((result: any) => {
+      console.log(result[2])
+      setIsLoading(false)
+    })
+    switch (tokenName) {
+      case "ETH":
+        result = await connectedContract.checkPool()
+        if (ethers.constants.AddressZero == result[2]) {
+          setEthTestPassed(false)
+        } else {
+          setEthTestPassed(true)
+        }
+        break
+      case "ARB":
+        result = await connectedContract.checkPool()
+        if (ethers.constants.AddressZero == result[0]) {
+          setArbTestPassed(false)
+        } else {
+          setArbTestPassed(true)
+        }
+        break
+      case "USDT":
+        result = await connectedContract.checkPool()
+        if (ethers.constants.AddressZero == result[1]) {
+          setUsdtTestPassed(false)
+        } else {
+          setUsdtTestPassed(true)
+        }
+        break
+      default:
+        throw new Error(`Unsupported token: ${tokenName}`)
     }
-
-    const getlqAmount = async (tokenName: string, contractInstance: Contract) =>{
-      const providers = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = providers.getSigner();
-      const connectedContract = contractInstance.connect(signer);
-
-      let lqAmount;
-      
-      switch (tokenName) {
-        case 'ETH':
-          lqAmount = await connectedContract.lqAmountETH();
-          setETHAmount((lqAmount+(lqAmount*1878)).toString());
-          break;
-        case 'ARB':
-          lqAmount = await connectedContract.lqAmountARB();
-          setARBAmount((lqAmount+lqAmount).toString());
-          break;
-        case 'USDT':
-          lqAmount = await connectedContract.lqAmountUSDT();
-          setUSDTAmount((lqAmount+(lqAmount)).toString());
-          break;
-        default:
-          throw new Error(`Unsupported token: ${tokenName}`);
-      }
-
-      return lqAmount;
   }
 
-  useEffect(()=>{
-    if(provider.provider !== "none"){
+  const getlqAmount = async (tokenName: string, contractInstance: Contract) => {
+    const providers = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = providers.getSigner()
+    const connectedContract = contractInstance.connect(signer)
+
+    let lqAmount
+
+    switch (tokenName) {
+      case "ETH":
+        lqAmount = await connectedContract.lqAmountETH()
+        setETHAmount((lqAmount + lqAmount * 1878).toString())
+        break
+      case "ARB":
+        lqAmount = await connectedContract.lqAmountARB()
+        setARBAmount((lqAmount + lqAmount).toString())
+        break
+      case "USDT":
+        lqAmount = await connectedContract.lqAmountUSDT()
+        setUSDTAmount((lqAmount + lqAmount).toString())
+        break
+      default:
+        throw new Error(`Unsupported token: ${tokenName}`)
+    }
+
+    return lqAmount
+  }
+
+  useEffect(() => {
+    if (provider.provider !== "none") {
       const contract = useFactory(provider.provider)
       setContractInstance(contract as Contract)
     }
@@ -105,23 +104,21 @@ const PairPool = () => {
 
   useEffect(() => {
     if (contractInstance) {
-      const providers = new ethers.providers.Web3Provider(window.ethereum);
+      const providers = new ethers.providers.Web3Provider(window.ethereum)
       const signer = providers.getSigner()
-      setsignerInstance(contractInstance.connect(signer));
-       ['ETH', 'ARB', 'USDT'].forEach(tokenName => {
-      getLpAddress(tokenName, contractInstance)
-        .then(result => {
-          setIsTestPassed(true)
-        })
-        .catch(err => console.error(err));
-      });
-      ['ETH', 'ARB', 'USDT'].forEach(tokenName => {
-        getlqAmount(tokenName, contractInstance)
-          .catch(err => console.error(err));
+      setsignerInstance(contractInstance.connect(signer))
+      ;["ETH", "ARB", "USDT"].forEach((tokenName) => {
+        getLpAddress(tokenName, contractInstance)
+          .then((result) => {
+            setIsTestPassed(true)
+          })
+          .catch((err) => console.error(err))
+      })
+      ;["ETH", "ARB", "USDT"].forEach((tokenName) => {
+        getlqAmount(tokenName, contractInstance).catch((err) => console.error(err))
       })
     }
-  }, [contractInstance]);
-
+  }, [contractInstance])
 
   // useEffect(() => {
   //   if (contractInstance) {
@@ -131,16 +128,16 @@ const PairPool = () => {
   //   }
   // }, [contractInstance]);
 
-//   const setCreatePool = async () => {
-//     if (!signerInstance) return
-//     const EthAddress = ethers.utils.getAddress("0x166fce3AB6F2A05c256a539668AF3D1C743fca61") 
-//     const AsdAddress = ethers.utils.getAddress("0x50519fcB3D44f3d07fc19b097A6dE33E136649c7")
-    
-//     let tx = await signerInstance.createPool(EthAddress, AsdAddress, {gasLimit:800000});
-//     let response = await tx.wait()
-//     console.log(response)
-//     // console.log(signerInstance)
-// }
+  //   const setCreatePool = async () => {
+  //     if (!signerInstance) return
+  //     const EthAddress = ethers.utils.getAddress("0x166fce3AB6F2A05c256a539668AF3D1C743fca61")
+  //     const AsdAddress = ethers.utils.getAddress("0x50519fcB3D44f3d07fc19b097A6dE33E136649c7")
+
+  //     let tx = await signerInstance.createPool(EthAddress, AsdAddress, {gasLimit:800000});
+  //     let response = await tx.wait()
+  //     console.log(response)
+  //     // console.log(signerInstance)
+  // }
 
   // useEffect(() => {
   //   if (signerInstance) {
@@ -158,10 +155,15 @@ const PairPool = () => {
 
   return (
     <div className={styles.container}>
-    <PoolIntro />
-    {isArbTestPassed && <PairList text='ARB' text2='ASD' top={5.5} radius1={2} radius2={2} amount1={ARBAmount}></PairList>}
-    {isUsdtTestPassed && <PairList text='USDT' text2='ASD' amount1={USDTAmount}></PairList>}
-    {isEthTestPassed && <PairList text='ETH' text2='ASD' radius3={2} radius4={2} amount1={ETHAmount}></PairList>}
+      <PoolIntro />
+      {isLoading && <>loading..</>}
+      <div style={{ background: "#faf9fa", padding: "24px 32px", height: "100%" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px" }}>
+          {isArbTestPassed && <PairList text="ARB" text2="ASD" top={0} radius1={2} radius2={2} amount1={ARBAmount}></PairList>}
+          {isUsdtTestPassed && <PairList text="USDT" text2="ASD" amount1={USDTAmount}></PairList>}
+          {isEthTestPassed && <PairList text="ETH" text2="ASD" radius3={2} radius4={2} amount1={ETHAmount}></PairList>}
+        </div>
+      </div>
     </div>
   )
 }
