@@ -13,6 +13,7 @@ import { RootState } from "@/redux/store"
 import { Contract, ethers } from "ethers"
 import { useFactory } from "@/app/hooks/usefactory"
 import { WithdrawsingleModalContent } from "./withDrawsinglModal"
+import { Loader } from "@/app/components/loader/loader.styled"
 
 const Arbadd = process.env.NEXT_PUBLIC_ARBTTOKEN_ADDRESS
 const Usdtadd = process.env.NEXT_PUBLIC_USDTTOKEN_ADDRESS
@@ -26,6 +27,7 @@ const DepositModalContent = ({ token, balance }: ISwap) => {
   const [contractInstance, setContractInstance] = useState<Contract | null>(null)
   const [signerInstance, setsignerInstance] = useState<Contract | null>(null)
   const [differamount, setDifferAmount] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
 
   const userAmount = async (signerInstance: Contract, differTokenAddress: string, asdTokenAddress: string) => {
     let tx1 = await signerInstance.checkToken(differTokenAddress)
@@ -37,11 +39,16 @@ const DepositModalContent = ({ token, balance }: ISwap) => {
     let realAmount = ethers.utils.parseEther(differamount.toString())
     if (token === "ETH") {
       const tx = await signerInstance.Sdeposit(Ethadd, realAmount)
+      setIsLoading(false)
     } else if (token === "ARB") {
       const tx = await signerInstance.Sdeposit(Arbadd, realAmount)
+      console.log("dddd")
+      setIsLoading(false)
     } else if (token === "USDT") {
       const tx = await signerInstance.Sdeposit(Usdtadd, realAmount)
+      setIsLoading(false)
     }
+    setIsLoading(false)
   }
 
   const handleInputChange1 = (event: any) => {
@@ -57,9 +64,10 @@ const DepositModalContent = ({ token, balance }: ISwap) => {
 
   const submitButton = (e: any) => {
     e.preventDefault()
+    setIsLoading(!isLoading)
     if (!signerInstance) return
     sDeposit(signerInstance, differamount)
-    router.push("/pool/single")
+    router.refresh()
   }
 
   useEffect(() => {
@@ -101,14 +109,19 @@ const DepositModalContent = ({ token, balance }: ISwap) => {
 
   return (
     <>
-      <ModalWrapST width={280} height={250}>
+      <ModalWrapST width={280} height={0}>
         <ModalcontentST width={280} height={100} flex={"true"}>
           <Span size={2.2} weight={"true"} text={"Add Liquidity"}></Span>
           <Span size={1.3} weight={"none"} text={"deposit Amount"} left={0} color={"purple"}></Span>
         </ModalcontentST>
-        <ModalcontentST width={280} height={150}>
+        <ModalcontentST width={280} height={150} flex={"true"}>
           <SwapBox token={token} balance={differValue} from={false} onInputChange={handleInputChange1}></SwapBox>
-          <Button width={18} height={2} top={1} text={"Deposit"} onclick={submitButton}></Button>
+          {isLoading && (
+            <div style={{ width: "100%", height: "30px", display: "flex", justifyContent: "center", margin: "5px 0px" }}>
+              <Loader />
+            </div>
+          )}
+          <Button width={18} height={3} top={1} text={"Deposit"} onclick={submitButton} disabled={isLoading} background={isLoading}></Button>
         </ModalcontentST>
       </ModalWrapST>
     </>

@@ -27,6 +27,7 @@ const SelectLPBox = ({handleSubmission}:ISelectLPBox) => {
       onClick={() => {
         setDropdownVisibility(!dropdownVisibility)
       }}
+      visibility={dropdownVisibility}
     >
       <SelectLPBoxWrap>
         <DefaultLP>

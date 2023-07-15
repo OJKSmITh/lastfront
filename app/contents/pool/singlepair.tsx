@@ -1,13 +1,11 @@
-
-import { Span } from '@/app/components/span/span';
-import { pairCon, Token } from '@/app/components/component.inteface';
-import { TokenName } from '@/app/components/tokenname/token';
-import { PoolWrapST } from '@/app/components/pool/pairlist';
-import { DepositModal } from '@/app/contents/modal/depositModal';
-import { ContentsWrapST } from '@/app/components/contentswrap';
-import { Button } from '@/app/components/button/button';
-import { ClaimModal } from '../modal/claimModal';
-
+import { Span } from "@/app/components/span/span"
+import { pairCon, Token } from "@/app/components/component.inteface"
+import { TokenName } from "@/app/components/tokenname/token"
+import { PoolWrapST } from "@/app/components/pool/pairlist"
+import { DepositModal } from "@/app/contents/modal/depositModal"
+import { ContentsWrapST } from "@/app/components/contentswrap"
+import { Button } from "@/app/components/button/button"
+import { ClaimModal } from "../modal/claimModal"
 
 export const SinglePairList = (props: pairCon) => {
   const { text, top, radius1, radius2, radius3, radius4 } = props
@@ -20,28 +18,38 @@ export const SinglePairList = (props: pairCon) => {
     return null
   }
 
-    return (
-        <>
-            <ContentsWrapST width={80.9} height={8.2} flex={"true"} back={"white"} top={top} radius1={radius1} radius2={radius2} radius3={radius3} radius4={radius4} left={8} >
-                <PoolWrapST width={8.49} height={2.25} flex={"none"} left={3.5}>
-                    <TokenName token={`${text}` as Token} ></TokenName>
-                </PoolWrapST>
-                <PoolWrapST width={8.49} height={2.75} flex={"true"} left={1.2}>
-                    <ClaimModal></ClaimModal>
-                </PoolWrapST >
-                <PoolWrapST width={8.49} height={2.75} flex={"true"} left={5} >
-                    <Span size={0.7} weight={"none"} text={"Reward Token"} color={"lightPurple"}></Span>
-                    <img style={{ width: "1.4rem", height: "1.4rem" ,marginRight:"1rem"}} src={imags[text]} />
-                </PoolWrapST>
-                <PoolWrapST width={8.49} height={2.75} flex={"true"} left={5}>
-                    <Span size={0.7} weight={"none"} text={"APR"} color={"lightPurple"}></Span>
-                    <Span size={1.1} weight={"bold"} text={"10%"} color={"purple"}></Span>
-                </PoolWrapST >
-                <PoolWrapST width={8.49} height={6}  flex={"true"} right={2}>
-                    <DepositModal token={text}></DepositModal>
-                </PoolWrapST >
-                </ContentsWrapST>
-        </>
-    )
+  return (
+    <>
+      <ContentsWrapST
+        width={0}
+        height={8.2}
+        flex={"true"}
+        back={"white"}
+        top={top}
+        radius1={radius1}
+        radius2={radius2}
+        radius3={radius3}
+        radius4={radius4}
+        left={0}
+      >
+        <PoolWrapST width={8.49} height={2.25} flex={"none"} left={3.5}>
+          <TokenName token={`${text}` as Token}></TokenName>
+        </PoolWrapST>
+        <PoolWrapST width={8.49} height={2.75} flex={"true"} left={1.2}>
+          <ClaimModal></ClaimModal>
+        </PoolWrapST>
+        <PoolWrapST width={8.49} height={2.75} flex={"true"} left={5}>
+          <Span size={0.7} weight={"none"} text={"Reward Token"} color={"lightPurple"}></Span>
+          <img style={{ width: "1.4rem", height: "1.4rem", marginRight: "1rem" }} src={imags[text]} />
+        </PoolWrapST>
+        <PoolWrapST width={8.49} height={2.75} flex={"true"} left={5}>
+          <Span size={0.7} weight={"none"} text={"APR"} color={"lightPurple"}></Span>
+          <Span size={1.1} weight={"bold"} text={"10%"} color={"purple"}></Span>
+        </PoolWrapST>
+        <PoolWrapST width={8.49} height={6} flex={"true"} right={2}>
+          <DepositModal token={text}></DepositModal>
+        </PoolWrapST>
+      </ContentsWrapST>
+    </>
+  )
 }
-

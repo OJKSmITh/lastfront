@@ -6,6 +6,10 @@ interface IItem {
   selected: boolean
 }
 
+interface IVisible {
+  visibility: boolean
+}
+
 export const Container = styled.div``
 
 export const Header = styled.div`
@@ -64,7 +68,6 @@ export const StakingBox = styled.div`
 
 export const ChooseBox = styled.div`
   display: flex;
-  /* justify-content: space-around; */
 `
 
 export const Item = styled.div<IItem>`
@@ -75,7 +78,7 @@ export const Item = styled.div<IItem>`
   height: 60px;
   border: 1px solid #e7e3eb;
   cursor: pointer;
-  background: ${({ selected }) => (selected ? "#e5fdff" : "transparent")};
+  background: ${({ selected }) => (selected ? "#b4c3ff" : "transparent")};
 `
 
 export const StakingInputWrap = styled.div`
@@ -111,17 +114,18 @@ export const StakingIcon = styled.div`
   font-size: 18px;
 `
 
-export const SelectLPWrapper = styled.div`
+export const SelectLPWrapper = styled.div<IVisible>`
+  width: 100%;
   border: 1px solid #e7e3eb;
-  border-radius: 16px;
-  height: 48px;
-  padding: 12px;
+  border-radius: ${({ visibility }) => (!visibility ? "16px" : "16px 16px 0px 0px")};
   cursor: pointer;
   position: relative;
   background: #fff;
 `
 
-export const SelectLPBoxWrap = styled.div``
+export const SelectLPBoxWrap = styled.div`
+  padding: 12px;
+`
 
 export const DefaultLP = styled.div`
   color: #280d5f;
@@ -134,14 +138,21 @@ export const DownArrowWrap = styled.div``
 export const LPListWrap = styled.div``
 
 export const LPList = styled.ul`
+  width: 100%;
+  position: absolute;
+  /* top: 100%; */
   border: 1px solid #e7e3eb;
   background: #fff;
   border-radius: 0px 0px 16px 16px;
 `
 
 export const LPItem = styled.li`
+  width: 100%;
   padding: 10px;
   color: #280d5f;
+  &:hover {
+    background: #b4c3ff;
+  }
 `
 
 export const RewardBox = styled.div`

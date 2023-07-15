@@ -12,6 +12,7 @@ import { setFactory } from "@/redux/reducer/contract"
 import { useFactory } from "../hooks/usefactory"
 import { ethers } from "ethers"
 import { setFromToken, setToToken } from "@/redux/reducer/selecttoken"
+import { Loader } from "../components/loader/loader.styled"
 
 type Tokens = "ETH" | "RETH" | "ASD" | "ARB" | "USDT"
 
@@ -36,6 +37,7 @@ const Swap = () => {
   const { provider, selectToken, contract, wallet, tokenPrice } = useSelector<RootState, RootState>((state) => state)
   const [inputValueFrom, setInputValueFrom] = useState(0)
   const [returnValue, setreturnValue] = useState("0")
+  const [isLoading, setIsLodaing] = useState(false)
 
   let text = "Swap"
   const setPercent = (token1: Tokens, token2: Tokens) => {
@@ -171,11 +173,13 @@ const Swap = () => {
   let clickHandler = async () => {
     if (sameToken() && contract.factory) {
       if (inputValueFrom <= 0) return alert("올바른 숫자를 입력해주세요")
+      setIsLodaing(!isLoading)
       const inputString = inputValueFrom.toString()
       const amount = ethers.utils.parseEther(inputString)
       const tx = await contract.factory.swapToken(tokenCA[tokenSwap.from], tokenCA[tokenSwap.to], amount, {
         gasLimit: 800000,
       })
+      setIsLodaing(false)
       const complete = await tx.wait()
       if (complete) {
         setBalance()
@@ -198,8 +202,9 @@ const Swap = () => {
           value: amount,
           gasLimit: 800000,
         })
-        const succese = await tx.wait()
-        if (succese) setBalanceRethToEth()
+        setIsLodaing(false)
+        const success = await tx.wait()
+        if (success) setBalanceRethToEth()
       }
     } else {
       text = "Refund Token"
@@ -211,8 +216,9 @@ const Swap = () => {
         const tx = await contract.factory!.refundToken(tokenCA["ETH"], amount, {
           gasLimit: 800000,
         })
-        const succese = await tx.wait()
-        if (succese) setBalanceEthToRETH()
+        setIsLodaing(false)
+        const success = await tx.wait()
+        if (success) setBalanceEthToRETH()
       }
     }
   }
@@ -232,7 +238,8 @@ const Swap = () => {
           </div>
           <div className={styles.content}>
             <SwapToken swapData={tokenSwap} onClick={changeClickHandler} onchange={handleInputChangeFrom} returnValue={returnValue}></SwapToken>
-            <Button width={18} height={3} text={text} onclick={clickHandler}></Button>
+            {isLoading && <Loader />}
+            <Button width={18} height={3} text={text} onclick={clickHandler} background={isLoading} disabled={isLoading}></Button>
           </div>
         </div>
       </div>
