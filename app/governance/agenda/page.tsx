@@ -75,7 +75,6 @@ const Agenda = () => {
       <BoardWrapper>
         <BoardSubject>Proposals</BoardSubject>
         <Board>
-          {isLoading && <>loading</>}
           {data.map(
             (item: { subject: string; content: string; id: number; progress: string; created_at: string; end_date: string; isJoin: number }) => (
               <Item

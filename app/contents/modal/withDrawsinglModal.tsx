@@ -1,19 +1,18 @@
-import { Token } from '@/app/components/component.inteface'
-import { ModalWrapST } from '@/app/components/modal2/styled'
-import { ModalcontentST } from '@/app/components/modal2/styled'
-import { Span } from '@/app/components/span/span'
-import { SwapBox } from '@/app/components/swapbox'
-import { Button } from '@/app/components/button/button'
-import { useSelector,useDispatch } from 'react-redux'
-import { RootState } from '@/redux/store'
-import { useFactory } from '@/app/hooks/usefactory'
-import { useState, useEffect } from 'react'
-import { Contract, ethers } from 'ethers'
-import { useRouter } from 'next/navigation'
+import { Token } from "@/app/components/component.inteface"
+import { ModalWrapST } from "@/app/components/modal2/styled"
+import { ModalcontentST } from "@/app/components/modal2/styled"
+import { Span } from "@/app/components/span/span"
+import { SwapBox } from "@/app/components/swapbox"
+import { Button } from "@/app/components/button/button"
+import { useSelector, useDispatch } from "react-redux"
+import { RootState } from "@/redux/store"
+import { useFactory } from "@/app/hooks/usefactory"
+import { useState, useEffect } from "react"
+import { Contract, ethers } from "ethers"
+import { useRouter } from "next/navigation"
 
-
-interface IWithdrawPairModalContent{
-    token:Token
+interface IWithdrawPairModalContent {
+  token: Token
 }
 
 const Arbadd = process.env.NEXT_PUBLIC_ARBTTOKEN_ADDRESS
@@ -49,22 +48,17 @@ export const WithdrawsingleModalContent = ({token:token}:IWithdrawPairModalConte
         const a =await signerInstance.Swithdraw(differToken, lpAmount,{gasLimit:800000})
         
     }
+  }, [provider])
 
-    useEffect(()=>{
-        if(provider.provider !== "none"){
-          const contract = useFactory(provider.provider)
-          setContractInstance(contract as Contract)
-        }
-      }, [provider])
+  useEffect(() => {
+    console.log("b")
 
-    useEffect(() => {
-        if (contractInstance) {
-          const providers = new ethers.providers.Web3Provider(window.ethereum);
-          const signer = providers.getSigner()
-          setsignerInstance(contractInstance.connect(signer));
+    if (contractInstance) {
+      const providers = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = providers.getSigner()
+      setsignerInstance(contractInstance.connect(signer))
     }
-      },[contractInstance]
-    )
+  }, [contractInstance])
 
     useEffect(()=>{
         if(!signerInstance) return

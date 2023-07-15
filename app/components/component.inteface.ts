@@ -50,11 +50,12 @@ export interface ButtonCon {
   height?: number
   text?: string
   color?: string
-  background?: string
+  background?: boolean
   size?: number
   onclick?: any
   left?: number
   top?: number
+  disabled?:boolean
 }
 
 export interface pairCon {

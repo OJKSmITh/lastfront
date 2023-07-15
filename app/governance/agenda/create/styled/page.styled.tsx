@@ -1,6 +1,6 @@
 "use client"
 
-import { styled } from "styled-components"
+import { styled, keyframes } from "styled-components"
 
 export const Container = styled.div`
   padding: 30px 50px;
@@ -79,7 +79,6 @@ export const Choice = styled.div`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  position: relative;
   color: #280d5f;
 `
 
@@ -90,11 +89,14 @@ export const ChoiceText = styled.h4`
   align-items: center;
 `
 
-export const ChoiceList = styled.ul``
+export const ChoiceList = styled.ul`
+  margin-top: 10px;
+`
 
 export const ChoiceItem = styled.li`
   color: #280d5f;
-  padding: 20px 0px;
+  padding: 20px;
+  cursor: pointer;
   &:hover {
     background: #b4c3ff;
   }
