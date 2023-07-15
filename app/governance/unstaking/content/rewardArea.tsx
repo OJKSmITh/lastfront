@@ -5,7 +5,7 @@ const RewardArea = () => {
   return (
     <RewardBox>
       <h2>
-        Reward Amount: 0 <span style={{ fontSize: "16px" }}>Vasd</span>
+        Reward Amount: 0 <span style={{ fontSize: "16px" }}>asd</span>
       </h2>
     </RewardBox>
   )
