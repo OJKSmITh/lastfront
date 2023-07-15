@@ -89,7 +89,6 @@ export const WithdrawPairModalContent =({token}:IWithdrawPairModalContent)=>{
     )
     useEffect(()=>{
         if(!signerInstance) return
-        
         if(token ==="ETH"){
           const fetchData = async () => {
             userAmount(signerInstance,EthLp as string, Ethadd as string, Asdadd as string )
