@@ -44,6 +44,7 @@ const StakingContent = () => {
   const handleSubmissionLp = (param:string)=>{
     setSubmissionLp(param)
   }
+
   useEffect(()=>{
     if(provider.provider !== "none"){
       const contract = useFactory(provider.provider)
@@ -64,15 +65,17 @@ const StakingContent = () => {
   const unSubmitButton = (e:any)=>{
     e.preventDefault()
     if(!signerInstance) return
-    console.log(signerInstance)
-    console.log(submissionAmount)
     let parseAmount = ethers.utils.parseEther(submissionAmount.toString())
+    console.log(signerInstance)
     if(submissionLp==="ARBLP"){
       let realPeriod =submissionPeriod
+      signerInstance.withDrawStaking(ArbLp, parseAmount)
     } else if(submissionLp ==="USDTLP"){
       let realPeriod =submissionPeriod
+      signerInstance.withDrawStaking(UsdtLP, parseAmount)
     } else if(submissionLp ==="ETHLP"){
       let realPeriod =submissionPeriod
+      signerInstance.withDrawStaking(EthLP, parseAmount,{ gasLimit:508388})
     }
   }
 
