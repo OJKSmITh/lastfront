@@ -14,6 +14,7 @@ const SelectLPBox = () => {
       onClick={() => {
         setDropdownVisibility(!dropdownVisibility)
       }}
+      visibility={dropdownVisibility}
     >
       <SelectLPBoxWrap>
         <DefaultLP>

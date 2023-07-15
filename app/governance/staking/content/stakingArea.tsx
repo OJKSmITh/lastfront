@@ -16,15 +16,7 @@ const StakingArea = () => {
       <StakingInputBox />
       <h3>CHOOSE A PAIR TO LIQUID STAKE</h3>
       <SelectLPBox />
-      <BasicButton
-        text="Staking !"
-        padding="24px"
-        borderRadius="16px"
-        fontSize="16px"
-        fontWeight="600"
-        background="#1fc7d4"
-        color="#fff"
-      />
+      <BasicButton text="Staking !" padding="24px" borderRadius="16px" fontSize="16px" fontWeight="600" background="#1fc7d4" color="#fff" />
     </StakingBox>
   )
 }
