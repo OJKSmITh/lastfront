@@ -22,6 +22,11 @@
           "internalType": "address",
           "name": "_userAccount",
           "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_differToken",
+          "type": "address"
         }
       ],
       "name": "getAccountBalance",
