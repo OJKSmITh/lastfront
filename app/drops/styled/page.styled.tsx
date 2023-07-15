@@ -41,6 +41,8 @@ export const DropItemWrapper = styled.div`
   width: 100%;
   margin-bottom: 40px;
   position: relative;
+  background: #b6e8f7;
+  border-radius: 15px;
 `
 
 export const DropItem = styled.div`

@@ -60,16 +60,16 @@ const AirdropModal = ({ setIsOpen, index, contract }: { setIsOpen: (value: boole
         <ModalContent>
           <MyAirdropTxT>My Airdrop</MyAirdropTxT>
           <MyAirdropAmount>Airdrop</MyAirdropAmount>
-          <RewardDate>Enable reward Date: 2023.07.09 09:00</RewardDate>
+          <RewardDate>Enable reward Date: 2023.07.20 09:00</RewardDate>
           <ButtonWrapper onclick={clickHandler} />
           <AirdropInfo>
             <AirdropPeriod>
               <AirdropPeriodTxT>Airdrop Date</AirdropPeriodTxT>
-              <AirdropPeriodDate>2023.07.09 ~ 2023.07.11</AirdropPeriodDate>
+              <AirdropPeriodDate>23.07.09 ~ 23.07.20</AirdropPeriodDate>
             </AirdropPeriod>
             <TotalAirdropAmount>
               <TotalAirdropAmountTxT>Total Airdrop</TotalAirdropAmountTxT>
-              <TotalAirdropAmountValue>100,000.0000000 oMEGA</TotalAirdropAmountValue>
+              <TotalAirdropAmountValue>1,000 oMEGA</TotalAirdropAmountValue>
             </TotalAirdropAmount>
           </AirdropInfo>
         </ModalContent>

@@ -11,19 +11,19 @@ const data = [
     index: 1,
     backgroundImg: "https://ss.klayswap.com/data/drops/token/0xea4c0ce0a20529127979Eb8F3FFBC7909AF09C99.png",
     title: "oPBOS AIR DROP",
-    progress: "END",
+    progress: "진행",
   },
   {
     index: 2,
     backgroundImg: "https://ss.klayswap.com/data/drops/token/0xea4c0ce0a20529127979Eb8F3FFBC7909AF09C99.png",
     title: "oADRB AIR DROP",
-    progress: "ING",
+    progress: "종료",
   },
   {
     index: 3,
     backgroundImg: "https://ss.klayswap.com/data/drops/token/0xea4c0ce0a20529127979Eb8F3FFBC7909AF09C99.png",
     title: "oABCD AIR DROP",
-    progress: "ING",
+    progress: "종료",
   },
 ]
 

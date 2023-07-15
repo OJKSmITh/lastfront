@@ -25,11 +25,11 @@ const Airdrop = ({ data, contract }: { data: props; contract: Contract | null })
       {isOpen && <AirdropModal index={data.index} setIsOpen={setIsOpen} contract={contract} />}
       <DropItem>
         <DropTitleWrapper>
+          <DropLabel>{data.progress}</DropLabel>
           <DropIcon>
             <img src={data.backgroundImg} width={"48px"} height={"48px"} style={{ borderRadius: "50%" }} />
           </DropIcon>
           <DropTitle>{data.title}</DropTitle>
-          <DropLabel>{data.progress}</DropLabel>
         </DropTitleWrapper>
         <DropInfoButton onClick={handleModal}>
           <PlusIcon />
