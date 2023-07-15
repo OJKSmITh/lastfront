@@ -158,10 +158,16 @@ export const TokenAddressWrapper = styled.div`
   border-radius: 16px;
   width: 500px;
   background: #fff;
+  display: flex;
+  align-items: center;
+  height: 126px;
+  font-size: 18px;
 `
 
-export const TokenAddressInput = styled.input`
+export const TokenAddressInput = styled.div`
   border: none;
+  display: flex;
+  align-items: center;
   width: 100%;
   &:focus {
     outline: none;

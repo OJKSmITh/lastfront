@@ -1,24 +1,16 @@
-import {
-  SubjectWrapper,
-  MyAmount,
-  MyAmountBox,
-  SubjectVoting,
-  Title,
-  Voting,
-  MyAmountInfo,
-} from "../styled/page.styled"
+import { SubjectWrapper, MyAmount, MyAmountBox, SubjectVoting, Title, Voting, MyAmountInfo } from "../styled/page.styled"
 
-const Subject = ({ subject }: { subject: string }) => {
+const Subject = ({ subject, balance, date }: { subject: string; balance: number; date: string }) => {
   return (
     <>
       <SubjectWrapper>
         <SubjectVoting>
           <Title>{subject}</Title>
-          <Voting>Voting deadline | 2023-07-01 ~ 2023-07-02</Voting>
+          <Voting>Voting deadline | {date}</Voting>
         </SubjectVoting>
         <MyAmountBox>
-          <MyAmountInfo>My vKSP</MyAmountInfo>
-          <MyAmount>0 vKSP</MyAmount>
+          <MyAmountInfo>My vASD</MyAmountInfo>
+          <MyAmount>{balance} vASD</MyAmount>
         </MyAmountBox>
       </SubjectWrapper>
     </>

@@ -129,7 +129,7 @@ const DepositModalContent = ({ token, balance }: ISwap) => {
 }
 
 interface IDepositModal {
-  token: string
+  token?: string
 }
 
 export const DepositModal = ({ token }: IDepositModal) => {

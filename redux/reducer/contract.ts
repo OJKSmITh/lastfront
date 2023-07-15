@@ -3,10 +3,16 @@ import { Contract } from "ethers"
 
 interface Contracts {
   factory: Contract | undefined
+  governance: Contract | undefined
+  selfToken: Contract | undefined
+  airdrop: Contract | undefined
 }
 
 const initialState: Contracts = {
   factory: undefined,
+  governance: undefined,
+  selfToken: undefined,
+  airdrop: undefined,
 }
 
 export const contractSlice = createSlice({
@@ -16,7 +22,16 @@ export const contractSlice = createSlice({
     setFactory: (state, action) => {
       state.factory = action.payload
     },
+    setGovernance: (state, action) => {
+      state.governance = action.payload
+    },
+    setSelfToken: (state, action) => {
+      state.selfToken = action.payload
+    },
+    setAirdrop: (state, action) => {
+      state.airdrop = action.payload
+    },
   },
 })
 
-export const { setFactory } = contractSlice.actions
+export const { setFactory, setGovernance, setSelfToken, setAirdrop } = contractSlice.actions
