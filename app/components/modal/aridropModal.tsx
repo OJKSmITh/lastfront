@@ -20,9 +20,11 @@ import ButtonWrapper from "../../components/button/airdropButtonWrapper"
 import { Contract } from "ethers"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
+import { Loader } from "../loader/loader.styled"
 
 const AirdropModal = ({ setIsOpen, index, contract }: { setIsOpen: (value: boolean) => void; index: number; contract: Contract | null }) => {
   const wrapperRef = useRef<HTMLDivElement>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const { wallet } = useSelector<RootState, RootState>((state) => state)
   const LPToken = process.env.NEXT_PUBLIC_ETHLP_ADDRESS
@@ -45,14 +47,17 @@ const AirdropModal = ({ setIsOpen, index, contract }: { setIsOpen: (value: boole
 
   const clickHandler = async () => {
     // console.log(provider, airdropContract)
+    setIsLoading(!isLoading)
+    console.log("contract::", contract)
     if (contract) {
       const tx = await contract.doAirdrop(wallet.signer, LPToken, index, {
         gasLimit: 80000,
       })
+      console.log("tx::", tx)
+      setIsLoading(!isLoading)
       const result = await tx.wait()
     }
   }
-  // console.log(index) //index로 구분해서 데이터 받아오기.
 
   return (
     <ModalOuter>
@@ -61,7 +66,8 @@ const AirdropModal = ({ setIsOpen, index, contract }: { setIsOpen: (value: boole
           <MyAirdropTxT>My Airdrop</MyAirdropTxT>
           <MyAirdropAmount>Airdrop</MyAirdropAmount>
           <RewardDate>Enable reward Date: 2023.07.20 09:00</RewardDate>
-          <ButtonWrapper onclick={clickHandler} />
+          {isLoading && <Loader />}
+          <ButtonWrapper onclick={clickHandler} disabled={isLoading} />
           <AirdropInfo>
             <AirdropPeriod>
               <AirdropPeriodTxT>Airdrop Date</AirdropPeriodTxT>

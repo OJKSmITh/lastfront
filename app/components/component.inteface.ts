@@ -155,4 +155,5 @@ export interface IBasicBtn {
   onClick?: any
   text?: string
   left?: number
+  disabled?:boolean
 }

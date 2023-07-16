@@ -99,6 +99,7 @@ const Agenda = () => {
   }
 
   useEffect(() => {
+    console.log("provider::", provider.provider)
     if (typeof provider.provider !== "string") {
       const signer = provider.provider.getSigner()
       const govCA = process.env.NEXT_PUBLIC_GOVERNOR_ADDRESS
