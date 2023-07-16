@@ -5,7 +5,7 @@ interface Item {
 }
 
 interface IJoin {
-  color: number
+  color: string
 }
 
 export const FirstLayout = styled.div`
@@ -101,5 +101,5 @@ export const Period = styled.div`
 
 export const IsChecked = styled.div<IJoin>`
   width: 60px;
-  color: ${({ color }) => (color === 0 ? "#ff9632" : "#1fc7d4")};
+  color: ${({ color }) => (color === "false" ? "#ff9632" : "#1fc7d4")};
 `

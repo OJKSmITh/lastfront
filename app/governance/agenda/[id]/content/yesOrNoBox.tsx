@@ -3,8 +3,8 @@ import SelectBox from "./selectBox"
 import request from "@/request"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
-import { useEffect } from "react"
-import { ethers } from "ethers"
+import { SetStateAction, useEffect, useState, Dispatch } from "react"
+import { BigNumber, ethers } from "ethers"
 // const data = {
 //   title: ["Agreement", "Opposition"],
 //   vkSP: ["66,573,528", "332,056"],
@@ -24,11 +24,12 @@ const data = [
   },
 ]
 
-const YesOrNoBox = ({ index, proposal }: { index: number; proposal: any }) => {
+const YesOrNoBox = ({ index, proposal, setProposal }: { index: number; proposal: any; setProposal: Dispatch<SetStateAction<any>> }) => {
   const {
     wallet: { signer },
     contract: { governance, selfToken },
   } = useSelector<RootState, RootState>((state) => state)
+  const [voteData, setVoteData] = useState<typeof data>(data)
 
   const clickToAgree = async () => {
     if (governance) {
@@ -37,11 +38,7 @@ const YesOrNoBox = ({ index, proposal }: { index: number; proposal: any }) => {
       })
       const success = await tx.wait()
       if (!success) return alert("이미 참여한 투표거나, 투표에 참여 할 수 없습니다.")
-      // const res = await request.post(`/governance/${index}`, {
-      //   isJoin: 1,
-      // })
-      // console.log(res)
-      setVotePer()
+      voteAfter()
     }
   }
 
@@ -52,22 +49,27 @@ const YesOrNoBox = ({ index, proposal }: { index: number; proposal: any }) => {
       })
       const success = await tx.wait()
       if (!success) return alert("이미 참여한 투표거나, 투표에 참여 할 수 없습니다.")
-      // const res = await request.post(`/governance/${index}`, {
-      //   isJoin: 1,
-      // })
-      // console.log(res)
-      setVotePer()
+      voteAfter()
     }
   }
 
   const setVotePer = async () => {
     if (selfToken && governance) {
-      const totalsupply = await selfToken.totalSupply()
-      const total = totalsupply.div(ethers.constants.WeiPerEther).toNumber()
       let amountVotes = proposal.amountVote
       if (!proposal.amountVote) amountVotes = 0
       data[0].percent = `${amountVotes.toFixed(2)}%`
       data[1].percent = `${(100 - amountVotes).toFixed(2)}%`
+    }
+  }
+
+  const voteAfter = async () => {
+    if (selfToken && governance) {
+      const result = await governance!.getProposal(index)
+      const amountVoteAfter = (result[6] as BigNumber).div(ethers.constants.WeiPerEther).toNumber()
+      const cloneVoteData = [...voteData]
+      cloneVoteData[0].percent = `${amountVoteAfter.toFixed(2)}%`
+      cloneVoteData[1].percent = `${(100 - amountVoteAfter).toFixed(2)}%`
+      setVoteData(cloneVoteData)
     }
   }
 
@@ -78,8 +80,8 @@ const YesOrNoBox = ({ index, proposal }: { index: number; proposal: any }) => {
   return (
     <>
       <YesNoWrapper>
-        <SelectBox data={data[0]} onClick={clickToAgree} />
-        <SelectBox data={data[1]} onClick={clickTodisAgree} />
+        <SelectBox data={voteData[0]} onClick={clickToAgree} />
+        <SelectBox data={voteData[1]} onClick={clickTodisAgree} />
       </YesNoWrapper>
     </>
   )
