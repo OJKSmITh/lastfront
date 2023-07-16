@@ -176,10 +176,10 @@ const Swap = () => {
       setIsLodaing(!isLoading)
       const inputString = inputValueFrom.toString()
       const amount = ethers.utils.parseEther(inputString)
+      setIsLodaing(false)
       const tx = await contract.factory.swapToken(tokenCA[tokenSwap.from], tokenCA[tokenSwap.to], amount, {
         gasLimit: 800000,
       })
-      setIsLodaing(false)
       const complete = await tx.wait()
       if (complete) {
         setBalance()
