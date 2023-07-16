@@ -3,9 +3,10 @@ import { ButtonWrap } from "./styled/airdropButtonWrapper.styled"
 
 interface Buttons {
   onclick?: () => void
+  disabled?: boolean
 }
 
-const ButtonWrapper: React.FC<Buttons> = ({ onclick }) => {
+const ButtonWrapper: React.FC<Buttons> = ({ onclick, disabled }) => {
   return (
     <ButtonWrap>
       <BasicButton
@@ -18,6 +19,7 @@ const ButtonWrapper: React.FC<Buttons> = ({ onclick }) => {
         fontWeight={"600"}
         onClick={onclick}
         text={"Receive Drop"}
+        disabled={disabled}
       />
     </ButtonWrap>
   )

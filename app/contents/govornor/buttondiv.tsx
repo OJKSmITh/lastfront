@@ -6,12 +6,12 @@ import { useSelector } from "react-redux"
 import styled from "styled-components"
 
 const ButtonWrap = styled.div`
-    width: 100%
-    height: 50px;
-    display: flex;
-    justify-content : space-around;
-    align-items: center;
-    margin-top: 40px;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 40px;
 `
 
 const tokenCA = {
