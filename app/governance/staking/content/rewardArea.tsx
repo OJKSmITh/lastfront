@@ -2,10 +2,10 @@ import BasicButton from "@/app/components/button/BasicBtn"
 import { RewardBox } from "../styled/page.styled"
 
 interface IRewardArea {
-  reward:number
+  reward?: number
 }
 
-const RewardArea = ({reward}:IRewardArea) => {
+const RewardArea = ({ reward }: IRewardArea) => {
   return (
     <RewardBox>
       <h2>
