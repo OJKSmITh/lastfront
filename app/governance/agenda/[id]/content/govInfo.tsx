@@ -10,7 +10,7 @@ const GovInfo = ({ index, proposal }: { index: number; proposal: any }) => {
     { title: "Status", value: proposal.executed },
     { title: "Writter", value: proposal.proposal },
     { title: "Total possible Vote", value: proposal.amountVote },
-    { title: "Minimun Standard", value: proposal.callFunction },
+    { title: "callFuntion", value: proposal.callFunction },
   ]
 
   return (

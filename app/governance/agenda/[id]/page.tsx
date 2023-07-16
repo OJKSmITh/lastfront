@@ -10,7 +10,7 @@ import { BodyWrapper, Container } from "./styled/page.styled"
 import request from "@/request"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
-import { BigNumber, ethers } from "ethers"
+import { BigNumber, BytesLike, ethers } from "ethers"
 import { ButtonDiv } from "@/app/contents/govornor/buttondiv"
 
 type PageParams = {
@@ -50,7 +50,7 @@ const ViewProposal = ({ params }: { params: PageParams }) => {
       proposal: data[0],
       startBlock: (data[1] as BigNumber).toNumber(),
       endBlock: (data[2] as BigNumber).toNumber(),
-      callFunction: data[3],
+      callFunction: ethers.utils.toUtf8String(data[3] as BytesLike),
       canceled: data[4],
       executed: data[5],
       amountVote: (data[6] as BigNumber).div(ethers.constants.WeiPerEther).toNumber(),
@@ -67,7 +67,7 @@ const ViewProposal = ({ params }: { params: PageParams }) => {
     <Container>
       <BodyWrapper>
         <Subject subject={subject} balance={balance} date={date} />
-        <YesOrNoBox index={index} proposal={proposal}></YesOrNoBox>
+        <YesOrNoBox index={index} proposal={proposal} setProposal={setProposal}></YesOrNoBox>
         <TextContent subject={subject} content={content} />
         <GovInfo index={index} proposal={proposal} />
         <GovProgress />
