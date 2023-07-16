@@ -42,7 +42,7 @@ interface Items {
   progress: string
   created_at: string
   end_date: string
-  isJoin: number
+  isJoin: boolean
 }
 
 const Agenda = () => {
@@ -55,11 +55,27 @@ const Agenda = () => {
   } = useSelector<RootState, RootState>((state) => state)
   const [proposals, setProposals] = useState<Items[] | null>(null)
 
+  const setJoin = async (data: any) => {
+    if (governance && selfToken && data) {
+      console.log(data)
+      const reData = [...data]
+      const proposalData = await Promise.all(
+        reData.map(async (v: Items) => {
+          const join = await governance.getHasVote(v.id)
+          v.isJoin = join
+          return v
+        })
+      )
+      setProposals(proposalData)
+    }
+  }
+
   let { data, isLoading } = useQuery({
     queryKey: ["governance"],
     queryFn: async () => {
       const res = await request.get("/api/governance")
       setProposals(res.data)
+      await setJoin(res.data)
       return res.data
     },
   })
@@ -104,17 +120,6 @@ const Agenda = () => {
     return <span className={style.loader}></span>
   }
 
-  const setJoin = () => {
-    if (governance && selfToken) {
-      data.map(async (v: Items) => {
-        const join = await governance.getHasVote(v.id)
-        v.isJoin = join
-      })
-    }
-  }
-
-  setJoin()
-
   return (
     <>
       <HfLayout>
@@ -145,7 +150,7 @@ const Agenda = () => {
                   <Period>
                     {item.created_at.toString().split("T")[0]} ~ {item.end_date.toString().split("T")[0]}
                   </Period>
-                  <IsChecked color={item.isJoin}>{item.isJoin === 0 ? "미참여" : "참여"}</IsChecked>
+                  <IsChecked color={`${item.isJoin}`}>{item.isJoin ? "참여" : "미참여"}</IsChecked>
                 </Item>
               ))
             : "없습니다"}
