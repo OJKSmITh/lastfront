@@ -68,6 +68,7 @@ export const RewardDate = styled.div`
 `
 
 export const AirdropInfo = styled.div`
+  width: 320px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -81,7 +82,7 @@ export const AirdropPeriod = styled.div`
 `
 
 export const AirdropPeriodTxT = styled.div`
-  width: 100%;
+  width: 60%;
   color: #280d5f;
 `
 
@@ -97,9 +98,12 @@ export const TotalAirdropAmount = styled.div`
 `
 
 export const TotalAirdropAmountTxT = styled.div`
+  width: 60%;
   color: #280d5f;
 `
 
 export const TotalAirdropAmountValue = styled.div`
+  width: 100%;
+  text-align: right;
   color: #280d5f;
 `

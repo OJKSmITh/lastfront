@@ -17,23 +17,14 @@ const BasicButtonSt = styled.button<IBasicBtn>`
   letter-spacing: ${({ letterSpacing }) => letterSpacing};
   cursor: pointer;
   border: none;
+
+  &:hover {
+    background: #8ae2ed;
+  }
 `
 
 const BasicButton = (props: IBasicBtn) => {
-  const {
-    width,
-    height,
-    color,
-    padding,
-    background,
-    borderRadius,
-    fontSize,
-    fontWeight,
-    letterSpacing,
-    text,
-    onClick,
-    left,
-  } = props
+  const { width, height, color, padding, background, borderRadius, fontSize, fontWeight, letterSpacing, text, onClick, left } = props
   return (
     <BasicButtonSt
       width={width}
@@ -46,7 +37,7 @@ const BasicButton = (props: IBasicBtn) => {
       fontWeight={fontWeight}
       letterSpacing={letterSpacing}
       onClick={onClick}
-      left ={left}
+      left={left}
     >
       {text}
     </BasicButtonSt>
