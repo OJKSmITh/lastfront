@@ -67,7 +67,7 @@ const DepositModalContent = ({ token, balance }: ISwap) => {
     setIsLoading(!isLoading)
     if (!signerInstance) return
     sDeposit(signerInstance, differamount)
-    router.refresh()
+    // router.refresh()
   }
 
   useEffect(() => {
@@ -136,6 +136,8 @@ export const DepositModal = ({ token }: IDepositModal) => {
   const router = useRouter()
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [modalIsOpen2, setModalIsOpen2] = useState(false)
+
+
   return (
     <>
       <Button width={6.303} height={2.2} top={1} onclick={() => setModalIsOpen(true)} text={"Deposit"}></Button>

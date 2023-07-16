@@ -7,6 +7,7 @@ export const InputWrap = ({
   onFocusChange,
   defaultValue,
   readonly,
+  display
 }: IInput) => {
   return (
     <InputWrapST>
@@ -17,6 +18,7 @@ export const InputWrap = ({
         onFocusChange={onFocusChange}
         readonly={readonly}
         values={defaultValue}
+        display={display}
       />
     </InputWrapST>
   )
