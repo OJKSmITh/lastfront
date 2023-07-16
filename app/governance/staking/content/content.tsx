@@ -33,12 +33,20 @@ const StakingContent = () => {
   const [submissionLp, setSubmissionLp] = useState("")
   const [contractInstance, setContractInstance] = useState<Contract | null>(null)
   const [signerInstance, setsignerInstance] =useState<Contract | null>(null)
+  const [returnAmount, setReturnAmount] = useState(0)
   
   const handleSubmissionPeriod = (param:number)=>{
     setSubmissionPeriod(param)
   }
   const handleSubmissionAmount = (param:number)=>{
     setSubmissionAmount(param)
+    if(submissionPeriod ===4){
+      setReturnAmount(param)
+    } else if(submissionPeriod ===8){
+      setReturnAmount(param*2)
+    } else if(submissionPeriod ===12){
+      setReturnAmount(param*4)
+    }
   }
 
   const handleSubmissionLp = (param:string)=>{
@@ -78,9 +86,7 @@ const StakingContent = () => {
     }
   }
 
-  const unSubmitButton =(e:any) =>{
-    e.preventDefault()
-  }
+
 
 
   return (
@@ -88,7 +94,7 @@ const StakingContent = () => {
       <ContentWrapper>
         <StakingReward>
           <StakingArea handleSubmissionPeriod={handleSubmissionPeriod} handleSubmissionAmount={handleSubmissionAmount} handleSubmissionLp={handleSubmissionLp}/>
-          <RewardArea />
+          <RewardArea reward={returnAmount}/>
         </StakingReward>
         <form>
           <BasicButton

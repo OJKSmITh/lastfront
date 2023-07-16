@@ -61,6 +61,7 @@ const StakingContent = () => {
   },[contractInstance]
   )
 
+ 
   
   const unSubmitButton = (e:any)=>{
     e.preventDefault()
@@ -69,10 +70,10 @@ const StakingContent = () => {
     console.log(signerInstance)
     if(submissionLp==="ARBLP"){
       let realPeriod =submissionPeriod
-      signerInstance.withDrawStaking(ArbLp, parseAmount)
+      signerInstance.withDrawStaking(ArbLp, parseAmount,{ gasLimit:508388})
     } else if(submissionLp ==="USDTLP"){
       let realPeriod =submissionPeriod
-      signerInstance.withDrawStaking(UsdtLP, parseAmount)
+      signerInstance.withDrawStaking(UsdtLP, parseAmount,{ gasLimit:508388})
     } else if(submissionLp ==="ETHLP"){
       let realPeriod =submissionPeriod
       signerInstance.withDrawStaking(EthLP, parseAmount,{ gasLimit:508388})
