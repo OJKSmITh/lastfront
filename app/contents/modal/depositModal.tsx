@@ -14,11 +14,12 @@ import { Contract, ethers } from "ethers"
 import { useFactory } from "@/app/hooks/usefactory"
 import { WithdrawsingleModalContent } from "./withDrawsinglModal"
 import { Loader } from "@/app/components/loader/loader.styled"
+import { ContractCA } from "@/contractCA"
 
-const Arbadd = process.env.NEXT_PUBLIC_ARBTTOKEN_ADDRESS
-const Usdtadd = process.env.NEXT_PUBLIC_USDTTOKEN_ADDRESS
-const Ethadd = process.env.NEXT_PUBLIC_ETHTOKEN_ADDRESS
-const Asdadd = process.env.NEXT_PUBLIC_ASDTOKEN_ADDRESS
+const Arbadd = ContractCA.NEXT_PUBLIC_ARBTTOKEN_ADDRESS
+const Usdtadd = ContractCA.NEXT_PUBLIC_USDTTOKEN_ADDRESS
+const Ethadd = ContractCA.NEXT_PUBLIC_ETHTOKEN_ADDRESS
+const Asdadd = ContractCA.NEXT_PUBLIC_ASDTOKEN_ADDRESS
 
 const DepositModalContent = ({ token, balance }: ISwap) => {
   const { provider, wallet, tokenPrice } = useSelector<RootState, RootState>((state) => state)
@@ -136,7 +137,6 @@ export const DepositModal = ({ token }: IDepositModal) => {
   const router = useRouter()
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [modalIsOpen2, setModalIsOpen2] = useState(false)
-
 
   return (
     <>

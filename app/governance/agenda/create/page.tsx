@@ -1,6 +1,7 @@
 "use client"
 
 import { Token } from "@/app/components/component.inteface"
+import { ContractCA } from "@/contractCA"
 import { useEffect, useState } from "react"
 import ChoiceBox from "./content/ChoiceBox"
 import HaveBox from "./content/HaveBox"
@@ -10,14 +11,14 @@ import Write from "./content/Write"
 import { ChangeCodeBox, Container, Title, Wrapper } from "./styled/page.styled"
 
 const tokenCA = {
-  ARB: process.env.NEXT_PUBLIC_ARBTTOKEN_ADDRESS,
-  USDT: process.env.NEXT_PUBLIC_USDTTOKEN_ADDRESS,
-  ASD: process.env.NEXT_PUBLIC_ASDTOKEN_ADDRESS,
-  ETH: process.env.NEXT_PUBLIC_ETHTOKEN_ADDRESS,
-  RETH: process.env.NEXT_PUBLIC_RETHTOKEN_ADDRESS,
-  ARBLP: process.env.NEXT_PUBLIC_ARBLP_ADDRESS,
-  USDTLP: process.env.NEXT_PUBLIC_USDTLP_ADDRESS,
-  ETHLP: process.env.NEXT_PUBLIC_ETHLP_ADDRESS,
+  ARB: ContractCA.NEXT_PUBLIC_ARBTTOKEN_ADDRESS,
+  USDT: ContractCA.NEXT_PUBLIC_USDTTOKEN_ADDRESS,
+  ASD: ContractCA.NEXT_PUBLIC_ASDTOKEN_ADDRESS,
+  ETH: ContractCA.NEXT_PUBLIC_ETHTOKEN_ADDRESS,
+  RETH: "",
+  ARBLP: ContractCA.NEXT_PUBLIC_ARBLP_ADDRESS,
+  USDTLP: ContractCA.NEXT_PUBLIC_USDTLP_ADDRESS,
+  ETHLP: ContractCA.NEXT_PUBLIC_ETHLP_ADDRESS,
 }
 
 const CreateProposal = () => {
