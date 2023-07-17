@@ -9,6 +9,7 @@ import { RootState } from "@/redux/store"
 import { useFactory } from "../../hooks/usefactory"
 import { Contract, ethers } from "ethers"
 import dotenv from "dotenv"
+import style from "./page.module.css"
 dotenv.config()
 
 const address = "0x0000000000000000000000000000000000000000"
@@ -152,6 +153,10 @@ const PairPool = () => {
 
   //   }
   // }, [signerInstance]);
+
+  if (isLoading) {
+    return <span className={style.loader}></span>
+  }
 
   return (
     <div className={styles.container}>
