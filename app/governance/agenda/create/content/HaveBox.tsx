@@ -1,3 +1,4 @@
+import { ContractCA } from "@/contractCA"
 import { RootState } from "@/redux/store"
 import { ethers } from "ethers"
 import { useEffect, useState } from "react"
@@ -13,8 +14,8 @@ const HaveBox = () => {
   } = useSelector<RootState, RootState>((state) => state)
 
   const setBalance = async () => {
-    const ASD = process.env.NEXT_PUBLIC_ASDTOKEN_ADDRESS
-    const vASD = process.env.NEXT_PUBLIC_VASDTOKEN_ADDRESS
+    const ASD = ContractCA.NEXT_PUBLIC_ASDTOKEN_ADDRESS
+    const vASD = ContractCA.NEXT_PUBLIC_VASDTOKEN_ADDRESS
     const ASDBalance = await factory!.checkToken(ASD)
     const vASDBalance = await factory!.checkToken(vASD)
     setASD(ASDBalance.div(ethers.constants.WeiPerEther).toNumber())

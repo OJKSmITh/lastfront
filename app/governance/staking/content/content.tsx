@@ -10,14 +10,15 @@ import { useDispatch, useSelector } from "react-redux"
 import { useRouter } from "next/navigation"
 import { RootState } from "@/redux/store"
 import { useFactory } from "@/app/hooks/usefactory"
+import { ContractCA } from "@/contractCA"
 
-const Arbadd = process.env.NEXT_PUBLIC_ARBTTOKEN_ADDRESS
-const Usdtadd = process.env.NEXT_PUBLIC_USDTTOKEN_ADDRESS
-const Ethadd = process.env.NEXT_PUBLIC_ETHTOKEN_ADDRESS
-const Asdadd = process.env.NEXT_PUBLIC_ASDTOKEN_ADDRESS
-const ArbLp = process.env.NEXT_PUBLIC_ARBLP_ADDRESS
-const UsdtLP = process.env.NEXT_PUBLIC_USDTLP_ADDRESS
-const EthLP = process.env.NEXT_PUBLIC_ETHLP_ADDRESS
+const Arbadd = ContractCA.NEXT_PUBLIC_ARBTTOKEN_ADDRESS
+const Usdtadd = ContractCA.NEXT_PUBLIC_USDTTOKEN_ADDRESS
+const Ethadd = ContractCA.NEXT_PUBLIC_ETHTOKEN_ADDRESS
+const Asdadd = ContractCA.NEXT_PUBLIC_ASDTOKEN_ADDRESS
+const ArbLp = ContractCA.NEXT_PUBLIC_ARBLP_ADDRESS
+const UsdtLP = ContractCA.NEXT_PUBLIC_USDTLP_ADDRESS
+const EthLP = ContractCA.NEXT_PUBLIC_ETHLP_ADDRESS
 
 const StakingContent = () => {
   const dispatch = useDispatch()
@@ -28,20 +29,20 @@ const StakingContent = () => {
   const [submissionAmount, setSubmissionAmount] = useState(0)
   const [submissionLp, setSubmissionLp] = useState("")
   const [contractInstance, setContractInstance] = useState<Contract | null>(null)
-  const [signerInstance, setsignerInstance] =useState<Contract | null>(null)
+  const [signerInstance, setsignerInstance] = useState<Contract | null>(null)
   const [returnAmount, setReturnAmount] = useState(0)
-  
-  const handleSubmissionPeriod = (param:number)=>{
+
+  const handleSubmissionPeriod = (param: number) => {
     setSubmissionPeriod(param)
   }
   const handleSubmissionAmount = (param: number) => {
     setSubmissionAmount(param)
-    if(submissionPeriod ===4){
+    if (submissionPeriod === 4) {
       setReturnAmount(param)
-    } else if(submissionPeriod ===8){
-      setReturnAmount(param*2)
-    } else if(submissionPeriod ===12){
-      setReturnAmount(param*4)
+    } else if (submissionPeriod === 8) {
+      setReturnAmount(param * 2)
+    } else if (submissionPeriod === 12) {
+      setReturnAmount(param * 4)
     }
   }
 
@@ -104,7 +105,7 @@ const StakingContent = () => {
               />
             </form>
           </StakingArea>
-          <RewardArea />
+          <RewardArea reward={returnAmount} />
         </StakingReward>
       </ContentWrapper>
     </Content>

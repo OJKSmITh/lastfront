@@ -11,18 +11,19 @@ import { useFactory } from "@/app/hooks/usefactory"
 import { useState, useEffect } from "react"
 import { Contract, ethers } from "ethers"
 import { useRouter } from "next/navigation"
+import { ContractCA } from "@/contractCA"
 
 interface IWithdrawPairModalContent {
   token: Token
 }
 
-const Arbadd = process.env.NEXT_PUBLIC_ARBTTOKEN_ADDRESS
-const Usdtadd = process.env.NEXT_PUBLIC_USDTTOKEN_ADDRESS
-const Ethadd = process.env.NEXT_PUBLIC_ETHTOKEN_ADDRESS
-const Asdadd = process.env.NEXT_PUBLIC_ASDTOKEN_ADDRESS
-const ArbLp = process.env.NEXT_PUBLIC_ARBLP_ADDRESS
-const UsdtLp = process.env.NEXT_PUBLIC_USDTLP_ADDRESS
-const EthLp = process.env.NEXT_PUBLIC_ETHLP_ADDRESS
+const Arbadd = ContractCA.NEXT_PUBLIC_ARBTTOKEN_ADDRESS
+const Usdtadd = ContractCA.NEXT_PUBLIC_USDTTOKEN_ADDRESS
+const Ethadd = ContractCA.NEXT_PUBLIC_ETHTOKEN_ADDRESS
+const Asdadd = ContractCA.NEXT_PUBLIC_ASDTOKEN_ADDRESS
+const ArbLp = ContractCA.NEXT_PUBLIC_ARBLP_ADDRESS
+const UsdtLp = ContractCA.NEXT_PUBLIC_USDTLP_ADDRESS
+const EthLp = ContractCA.NEXT_PUBLIC_ETHLP_ADDRESS
 
 export const WithdrawsingleModalContent = ({ token: token }: IWithdrawPairModalContent) => {
   const dispatch = useDispatch()
@@ -33,13 +34,12 @@ export const WithdrawsingleModalContent = ({ token: token }: IWithdrawPairModalC
   const [contractInstance, setContractInstance] = useState<Contract | null>(null)
   const [signerInstance, setsignerInstance] = useState<Contract | null>(null)
 
- 
   const sWithdraw = async (signerInstance: Contract, differToken: string, differAmount: number) => {
     let lpAmount = ethers.utils.parseEther(differAmount.toString())
     const a = await signerInstance.Swithdraw(differToken, lpAmount, { gasLimit: 800000 })
   }
 
-   useEffect(() => {
+  useEffect(() => {
     if (provider.provider !== "none") {
       const contract = useFactory(provider.provider)
       setContractInstance(contract as Contract)
@@ -54,20 +54,20 @@ export const WithdrawsingleModalContent = ({ token: token }: IWithdrawPairModalC
     }
   }, [contractInstance])
 
-  const checkToken= async (signerInstance:Contract,token:Token)=>{
+  const checkToken = async (signerInstance: Contract, token: Token) => {
     if (token === "ETH") {
-      const {_hex:convert1} = await signerInstance.sEth()
+      const { _hex: convert1 } = await signerInstance.sEth()
       const bigNumber1 = ethers.BigNumber.from(convert1)
       const converted1 = bigNumber1.toNumber()
       console.log(converted1)
       setDifferValue(converted1)
     } else if (token === "ARB") {
-      const {_hex:convert1} = await signerInstance.sArb()
+      const { _hex: convert1 } = await signerInstance.sArb()
       const bigNumber1 = ethers.BigNumber.from(convert1)
       const converted1 = bigNumber1.toNumber()
       setDifferValue(converted1)
     } else if (token === "USDT") {
-      const {_hex:convert1} = await signerInstance.sUsdt()
+      const { _hex: convert1 } = await signerInstance.sUsdt()
       const bigNumber1 = ethers.BigNumber.from(convert1)
       const converted1 = bigNumber1.toNumber()
       setDifferValue(converted1)
@@ -75,13 +75,12 @@ export const WithdrawsingleModalContent = ({ token: token }: IWithdrawPairModalC
   }
   useEffect(() => {
     if (!signerInstance) return
-    checkToken(signerInstance,token)
+    checkToken(signerInstance, token)
   }, [signerInstance])
 
   const handleInputChange1 = (event: any) => {
     setDifferAmount(event.target.value)
   }
-  
 
   const submitButton = (e: any) => {
     e.preventDefault()
