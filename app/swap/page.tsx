@@ -13,15 +13,16 @@ import { useFactory } from "../hooks/usefactory"
 import { ethers } from "ethers"
 import { setFromToken, setToToken } from "@/redux/reducer/selecttoken"
 import { Loader } from "../components/loader/loader.styled"
+import { ContractCA } from "@/contractCA"
 
 type Tokens = "ETH" | "RETH" | "ASD" | "ARB" | "USDT"
 
 const tokenCA = {
-  ARB: process.env.NEXT_PUBLIC_ARBTTOKEN_ADDRESS,
-  USDT: process.env.NEXT_PUBLIC_USDTTOKEN_ADDRESS,
-  ASD: process.env.NEXT_PUBLIC_ASDTOKEN_ADDRESS,
-  ETH: process.env.NEXT_PUBLIC_ETHTOKEN_ADDRESS,
-  RETH: process.env.NEXT_PUBLIC_RETHTOKEN_ADDRESS,
+  ARB: ContractCA.NEXT_PUBLIC_ARBTTOKEN_ADDRESS,
+  USDT: ContractCA.NEXT_PUBLIC_USDTTOKEN_ADDRESS,
+  ASD: ContractCA.NEXT_PUBLIC_ASDTOKEN_ADDRESS,
+  ETH: ContractCA.NEXT_PUBLIC_ETHTOKEN_ADDRESS,
+  RETH: "",
   ARBLP: "",
   USDTLP: "",
   ETHLP: "",

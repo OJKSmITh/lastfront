@@ -5,6 +5,7 @@ import { useSelector } from "react-redux"
 import { BodyWrapper, BodyContent } from "../styled/page.styled"
 import airdrop from "../../../contracts/airdrop.sol/Airdrop.json"
 import Airdrop from "./airdrop"
+import { ContractCA } from "@/contractCA"
 
 const data = [
   {
@@ -32,7 +33,7 @@ const DropBody = () => {
   const [airdropContract, setAirdropContract] = useState<Contract | null>(null)
 
   useEffect(() => {
-    const airdropCA = process.env.NEXT_PUBLIC_AIRDROP_ADDRESS
+    const airdropCA = ContractCA.NEXT_PUBLIC_AIRDROP_ADDRESS
     if (typeof provider.provider !== "string" && airdropCA) {
       const contract = new ethers.Contract(airdropCA, airdrop.abi, provider.provider)
       const instance = contract.connect(provider.provider.getSigner())

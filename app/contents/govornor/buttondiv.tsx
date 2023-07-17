@@ -4,6 +4,7 @@ import { RootState } from "@/redux/store"
 import { ethers } from "ethers"
 import { useSelector } from "react-redux"
 import styled from "styled-components"
+import { ContractCA } from "@/contractCA"
 
 const ButtonWrap = styled.div`
   width: 100%;
@@ -15,14 +16,14 @@ const ButtonWrap = styled.div`
 `
 
 const tokenCA = {
-  ARB: process.env.NEXT_PUBLIC_ARBTTOKEN_ADDRESS,
-  USDT: process.env.NEXT_PUBLIC_USDTTOKEN_ADDRESS,
-  ASD: process.env.NEXT_PUBLIC_ASDTOKEN_ADDRESS,
-  ETH: process.env.NEXT_PUBLIC_ETHTOKEN_ADDRESS,
-  RETH: process.env.NEXT_PUBLIC_RETHTOKEN_ADDRESS,
-  ARBLP: process.env.NEXT_PUBLIC_ARBLP_ADDRESS,
-  USDTLP: process.env.NEXT_PUBLIC_USDTLP_ADDRESS,
-  ETHLP: process.env.NEXT_PUBLIC_ETHLP_ADDRESS,
+  ARB: ContractCA.NEXT_PUBLIC_ARBTTOKEN_ADDRESS,
+  USDT: ContractCA.NEXT_PUBLIC_USDTTOKEN_ADDRESS,
+  ASD: ContractCA.NEXT_PUBLIC_ASDTOKEN_ADDRESS,
+  ETH: ContractCA.NEXT_PUBLIC_ETHTOKEN_ADDRESS,
+  ARBLP: ContractCA.NEXT_PUBLIC_ARBLP_ADDRESS,
+  USDTLP: ContractCA.NEXT_PUBLIC_USDTLP_ADDRESS,
+  ETHLP: ContractCA.NEXT_PUBLIC_ETHLP_ADDRESS,
+  RETH: "",
 }
 
 export const ButtonDiv: React.FC<ButtonCon> = ({ index, text }) => {

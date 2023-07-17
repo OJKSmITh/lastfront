@@ -34,6 +34,7 @@ import { Contract, ethers } from "ethers"
 import { setProviders } from "@/app/utiles/setprovider"
 import { setProvider } from "@/redux/reducer/provider"
 import { setFactory, setGovernance, setSelfToken } from "@/redux/reducer/contract"
+import { ContractCA } from "@/contractCA"
 
 interface Items {
   subject: string
@@ -102,9 +103,9 @@ const Agenda = () => {
     console.log("provider::", provider.provider)
     if (typeof provider.provider !== "string") {
       const signer = provider.provider.getSigner()
-      const govCA = process.env.NEXT_PUBLIC_GOVERNOR_ADDRESS
-      const factoryCA = process.env.NEXT_PUBLIC_FACTORY_ADDRESS
-      const VASDCA = process.env.NEXT_PUBLIC_VASDTOKEN_ADDRESS
+      const govCA = ContractCA.NEXT_PUBLIC_GOVERNOR_ADDRESS
+      const factoryCA = ContractCA.NEXT_PUBLIC_FACTORY_ADDRESS
+      const VASDCA = ContractCA.NEXT_PUBLIC_VASDTOKEN_ADDRESS
       const govinstance = new ethers.Contract(govCA!, Governance.abi, provider.provider)
       const factoryinstatnce = new ethers.Contract(factoryCA!, Factory.abi, provider.provider)
       const VASDinstance = new ethers.Contract(VASDCA!, SelfToken.abi, provider.provider)
