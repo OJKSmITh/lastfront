@@ -21,13 +21,14 @@ import { Contract } from "ethers"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { Loader } from "../loader/loader.styled"
+import { ContractCA } from "@/contractCA"
 
 const AirdropModal = ({ setIsOpen, index, contract }: { setIsOpen: (value: boolean) => void; index: number; contract: Contract | null }) => {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const { wallet } = useSelector<RootState, RootState>((state) => state)
-  const LPToken = process.env.NEXT_PUBLIC_ETHLP_ADDRESS
+  const LPToken = ContractCA.NEXT_PUBLIC_ETHLP_ADDRESS
 
   const handler = useCallback(
     (e: any) => {
