@@ -78,15 +78,15 @@ const PairPool = () => {
     switch (tokenName) {
       case "ETH":
         lqAmount = await connectedContract.lqAmountETH()
-        setETHAmount((lqAmount + lqAmount * 1878).toString())
+        setETHAmount((lqAmount.toNumber() + ((lqAmount.toNumber()) * 1878)).toString())
         break
       case "ARB":
         lqAmount = await connectedContract.lqAmountARB()
-        setARBAmount((lqAmount + lqAmount).toString())
+        setARBAmount((lqAmount.toNumber() + ((lqAmount.toNumber()))).toString())
         break
       case "USDT":
         lqAmount = await connectedContract.lqAmountUSDT()
-        setUSDTAmount((lqAmount + lqAmount).toString())
+        setUSDTAmount((lqAmount.toNumber() + ((lqAmount.toNumber()))).toString())
         break
       default:
         throw new Error(`Unsupported token: ${tokenName}`)
