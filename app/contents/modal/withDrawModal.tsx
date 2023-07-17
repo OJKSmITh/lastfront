@@ -72,12 +72,6 @@ export const WithdrawPairModalContent = ({ token }: IWithdrawPairModalContent) =
         await signerInstance.withDrawLiquid(differLpToken,lpAmount, AsdToken, {gasLimit:800000})
     }
 
-
-  const subLiquid = async (signerInstance: Contract, differLpToken: string, amount: number, AsdToken: string) => {
-    let lpAmount = ethers.utils.parseEther(amount.toString())
-    await signerInstance.withDrawLiquid(differLpToken, lpAmount, AsdToken)
-  }
-
   useEffect(() => {
     if (provider.provider !== "none") {
       const contract = useFactory(provider.provider)

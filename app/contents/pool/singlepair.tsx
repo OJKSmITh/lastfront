@@ -36,9 +36,7 @@ export const SinglePairList = (props: pairCon) => {
         <PoolWrapST width={8.49} height={2.25} flex={"none"} left={3.5}>
           <TokenName token={`${text}` as Token}></TokenName>
         </PoolWrapST>
-        <PoolWrapST width={8.49} height={2.75} flex={"true"} left={1.2}>
-          <ClaimModal token={text as Token}></ClaimModal>
-        </PoolWrapST>
+        
         <PoolWrapST width={8.49} height={2.75} flex={"true"} left={5}>
           <Span size={0.7} weight={"none"} text={"Reward Token"} color={"lightPurple"}></Span>
           <img style={{ width: "1.4rem", height: "1.4rem", marginRight: "1rem" }} src={imags["ASD"]} />
