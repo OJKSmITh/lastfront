@@ -40,9 +40,9 @@ export const WithdrawPairModalContent =({token}:IWithdrawPairModalContent)=>{
     const [withDraw2, setwithDraw2] = useState(0)
 
     const userAmount = async (signerInstance: Contract,differLp:string ,differTokenAddress: string, asdTokenAddress: string) => {
-        let tx1 = await signerInstance.checkToken(differLp);
-        let tx2 = await signerInstance.checkToken(differTokenAddress);
-        let tx3 = await signerInstance.checkToken(asdTokenAddress); 
+        let tx1 = await signerInstance.checkToken(differLp,{gasLimit:800000});
+        let tx2 = await signerInstance.checkToken(differTokenAddress, {gasLimit:800000});
+        let tx3 = await signerInstance.checkToken(asdTokenAddress, {gasLimit:800000}); 
         const {_hex:convert1} = ethers.BigNumber.from(tx1);
         const {_hex:convert2} = ethers.BigNumber.from(tx2);
         const {_hex:convert3} = ethers.BigNumber.from(tx3);
@@ -59,9 +59,9 @@ export const WithdrawPairModalContent =({token}:IWithdrawPairModalContent)=>{
     
     const calcLp = async (signerInstance:Contract, differLp:string, differLpAmount:number)=>{
         let lpAmount = ethers.utils.parseEther(differLpAmount.toString())
-        let tx1 =await signerInstance.getAmount(differLp, lpAmount, Asdadd)
-        let tx2 = await signerInstance.withdrawtoken1()
-        let tx3 = await signerInstance.withdrawAsd()
+        let tx1 =await signerInstance.getAmount(differLp, lpAmount, Asdadd,{gasLimit:800000})
+        let tx2 = await signerInstance.withdrawtoken1({gasLimit:800000})
+        let tx3 = await signerInstance.withdrawAsd({gasLimit:800000})
         let amount1 = ethers.BigNumber.from(tx2)
         let amount2 = ethers.BigNumber.from(tx3)
         return {amount1, amount2}
@@ -69,7 +69,7 @@ export const WithdrawPairModalContent =({token}:IWithdrawPairModalContent)=>{
 
     const subLiquid = async(signerInstance:Contract,differLpToken:string, amount:number, AsdToken:string)=>{
         let lpAmount = ethers.utils.parseEther(amount.toString())
-        await signerInstance.withDrawLiquid(differLpToken,lpAmount, AsdToken)
+        await signerInstance.withDrawLiquid(differLpToken,lpAmount, AsdToken, {gasLimit:800000})
     }
 
     useEffect(()=>{

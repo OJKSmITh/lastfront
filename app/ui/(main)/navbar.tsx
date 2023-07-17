@@ -66,7 +66,7 @@ const Navbar = () => {
       <Link href={"/"}>
         <Logo>
           <FontAwesomeIcon icon={faCookie} color="#8B5927" />
-          <h3 className={rubikGemstones.className}>cookieSwap</h3>
+          <h3 className={rubikGemstones.className}>Solar DeFI</h3>
         </Logo>
       </Link>
       <NavbarMenu />

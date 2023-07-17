@@ -104,7 +104,7 @@ const StakingContent = () => {
               />
             </form>
           </StakingArea>
-          <RewardArea />
+          <RewardArea reward={returnAmount} />
         </StakingReward>
       </ContentWrapper>
     </Content>
